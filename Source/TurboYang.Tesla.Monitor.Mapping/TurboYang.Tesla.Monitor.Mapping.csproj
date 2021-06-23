@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TurboYang.Tesla.Monitor.Database\TurboYang.Tesla.Monitor.Database.csproj" />
+    <ProjectReference Include="..\TurboYang.Tesla.Monitor.Model\TurboYang.Tesla.Monitor.Model.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  tesla-monitor:
+    image: turboyangcn/turboyangteslamonitorwebapi:latest
+    container_name: 'Tesla-Monitor'
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - Language=zh-CN
+    depends_on:
+      - database
+    ports:
+      - 6000:80
+    volumes:
+      - ./Logs:/app/Logs
+    networks:
+      - network
+
+  database:
+    image: postgis/postgis:latest
+    container_name: 'Tesla-Monitor-Database'
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=TeslaMonitor
+      - TZ=Asia/Shanghai
+    ports:
+      - 54322:5432
+    volumes:
+      - ./Database:/var/lib/postgresql/data
+    networks:
+      - network
+      
+networks:
+  network:
+   name: 'Tesla Monitor Network'
