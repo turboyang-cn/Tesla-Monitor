@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\Dockerfile" Link="Dockerfile" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Macross.Json.Extensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.7" />
@@ -24,10 +28,6 @@
     <ProjectReference Include="..\TurboYang.Tesla.Monitor.Core\TurboYang.Tesla.Monitor.Core.csproj" />
     <ProjectReference Include="..\TurboYang.Tesla.Monitor.Mapping\TurboYang.Tesla.Monitor.Mapping.csproj" />
     <ProjectReference Include="..\TurboYang.Tesla.Monitor.Model\TurboYang.Tesla.Monitor.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>
