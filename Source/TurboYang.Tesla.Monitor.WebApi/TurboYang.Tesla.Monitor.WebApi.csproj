@@ -4,7 +4,6 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>4fad49ce-5442-42fb-807f-5d8ef0002bd0</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileBuildArguments>-t turboyangcn/tesla-monitor:latest</DockerfileBuildArguments>
   </PropertyGroup>
 
   <ItemGroup>
