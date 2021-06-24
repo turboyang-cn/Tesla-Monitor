@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+using NLog;
+
 using NodaTime;
 
 using Npgsql;
@@ -22,6 +24,8 @@ namespace TurboYang.Tesla.Monitor.Database
 {
     public class DatabaseContext : DbContext
     {
+        private ILogger Logger { get; } = LogManager.GetCurrentClassLogger();
+
         private static IReadOnlyDictionary<String, String> NameMapping
         {
             get
@@ -179,6 +183,8 @@ namespace TurboYang.Tesla.Monitor.Database
                     }
                 }
             }
+
+            Logger.Trace($"Change Tracker Entity Count: {ChangeTracker.Entries().Count()}");
         }
 
         #endregion
