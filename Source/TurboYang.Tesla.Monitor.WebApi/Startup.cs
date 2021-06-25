@@ -19,6 +19,7 @@ using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
 
 using TurboYang.Tesla.Monitor.Client;
+using TurboYang.Tesla.Monitor.Core;
 using TurboYang.Tesla.Monitor.Core.JsonConverters;
 using TurboYang.Tesla.Monitor.Database;
 using TurboYang.Tesla.Monitor.Mapping;

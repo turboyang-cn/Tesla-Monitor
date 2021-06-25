@@ -95,7 +95,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 }
             }
             private Stopwatch TryAsleepTimer { get; set; } = new();
-            private SemaphoreSlim SemaphoreSlim { get; } = new SemaphoreSlim(1, 1);
             private ConcurrentQueue<(CarState State, IDatabaseService.Snapshot Snapshot, Instant Timestamp)> Snapshots { get; } = new();
 
             public CarRecorder(ITeslaClient teslaClient, IServiceScopeFactory serviceScopeFactory, Int32 carEntityId, String name, String accessToken, String carId, Int64 vehicleId, JsonOptions jsonOptions, Int32 samplingRate, Int32 tryAsleepDelay, Boolean isSamplingCompression)
@@ -231,33 +230,13 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                                             }
                                         }
 
-                                        await SemaphoreSlim.WaitAsync();
-                                        try
-                                        {
-                                            Snapshots.Enqueue((currentState, new IDatabaseService.Snapshot(carData, null), carData.CarState.Timestamp));
-                                        }
-                                        finally
-                                        {
-                                            SemaphoreSlim.Release();
-                                        }
+                                        Snapshots.Enqueue((currentState, new IDatabaseService.Snapshot(carData, null), carData.CarState.Timestamp));
                                     }
                                 }
                                 else
                                 {
                                     StopTryAsleep();
-
-                                    await SemaphoreSlim.WaitAsync();
-                                    try
-                                    {
-                                        Snapshots.Enqueue((CarState.Asleep, null, Instant.FromDateTimeUtc(DateTime.UtcNow)));
-                                    }
-                                    finally
-                                    {
-                                        SemaphoreSlim.Release();
-                                    }
                                 }
-
-                                offlineCounter = 0;
                             }
                             else
                             {
@@ -267,19 +246,9 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
 
                                     continue;
                                 }
-
-                                offlineCounter = 0;
-
-                                await SemaphoreSlim.WaitAsync();
-                                try
-                                {
-                                    Snapshots.Enqueue((CarState.Offline, null, Instant.FromDateTimeUtc(DateTime.UtcNow)));
-                                }
-                                finally
-                                {
-                                    SemaphoreSlim.Release();
-                                }
                             }
+
+                            offlineCounter = 0;
                         }
                         catch
                         {
@@ -290,32 +259,21 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                                 continue;
                             }
 
-                            offlineCounter = 0;
+                            currentState = CarState.Offline;
 
-                            await SemaphoreSlim.WaitAsync();
-                            try
-                            {
-                                Snapshots.Enqueue((CarState.Offline, null, Instant.FromDateTimeUtc(DateTime.UtcNow)));
-                            }
-                            finally
-                            {
-                                SemaphoreSlim.Release();
-                            }
+                            offlineCounter = 0;
                         }
 
                         while (StreamingRecorder.StreamingDatas.TryDequeue(out TeslaStreamingData streamingData))
                         {
                             offlineCounter = 0;
 
-                            await SemaphoreSlim.WaitAsync();
-                            try
-                            {
-                                Snapshots.Enqueue((currentState, new IDatabaseService.Snapshot(carData, streamingData), streamingData.Timestamp));
-                            }
-                            finally
-                            {
-                                SemaphoreSlim.Release();
-                            }
+                            Snapshots.Enqueue((currentState, new IDatabaseService.Snapshot(carData, streamingData), streamingData.Timestamp));
+                        }
+
+                        if (currentState == CarState.Asleep || currentState == CarState.Offline)
+                        {
+                            Snapshots.Enqueue((currentState, null, Instant.FromDateTimeUtc(DateTime.UtcNow)));
                         }
                     }
                     catch (Exception exception)
@@ -340,31 +298,16 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 {
                     try
                     {
-                        (CarState State, IDatabaseService.Snapshot Snapshot, Instant Timestamp) result = default;
-
                         Int32 snapshotCount = 0;
 
-                        await SemaphoreSlim.WaitAsync();
-                        try
+                        if (!Snapshots.TryDequeue(out (CarState State, IDatabaseService.Snapshot Snapshot, Instant Timestamp) result))
                         {
-                            if (!Snapshots.TryDequeue(out result))
-                            {
-                                await Task.Delay(500);
+                            await Task.Delay(500);
 
-                                continue;
-                            }
-
-                            snapshotCount = Snapshots.Count;
-                        }
-                        catch
-                        {
-                            throw;
-                        }
-                        finally
-                        {
-                            SemaphoreSlim.Release();
+                            continue;
                         }
 
+                        snapshotCount = Snapshots.Count;
                         Stopwatch stopwatch = new();
                         stopwatch.Start();
 
