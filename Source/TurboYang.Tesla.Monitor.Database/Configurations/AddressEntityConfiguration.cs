@@ -22,7 +22,7 @@ namespace TurboYang.Tesla.Monitor.Database.Configurations
                    .HasColumnType("geography (point)");
             builder.Property(x => x.Radius)
                    .IsRequired()
-                   .HasDefaultValue(30);
+                   .HasDefaultValue(0.03);
         }
     }
 }

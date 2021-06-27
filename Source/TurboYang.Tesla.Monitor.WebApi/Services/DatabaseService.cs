@@ -91,7 +91,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 await SaveStartChargingAsync(carEntityId, name, vehicleId, timestamp);
             }
 
-            SnapshotEntity lastSnapshotEntity = await DatabaseContext.Snapshot.OrderByDescending(x => x.CreateTimestamp).FirstOrDefaultAsync();
+            SnapshotEntity lastSnapshotEntity = await DatabaseContext.Snapshot.OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync();
 
             if (lastSnapshotEntity?.Timestamp >= timestamp)
             {
@@ -198,8 +198,8 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
             if (lastStandByEntity != null && lastStandByEntity.EndTimestamp == null)
             {
                 Decimal fullPower = await GetFullPowerAsync(carEntityId);
-                StandBySnapshotEntity firstRecord = await DatabaseContext.StandBySnapshot.Where(x => x.StandBy == lastStandByEntity).OrderBy(x => x.CreateTimestamp).FirstOrDefaultAsync();
-                StandBySnapshotEntity lastRecord = await DatabaseContext.StandBySnapshot.Where(x => x.StandBy == lastStandByEntity).OrderByDescending(x => x.CreateTimestamp).FirstOrDefaultAsync();
+                StandBySnapshotEntity firstRecord = await DatabaseContext.StandBySnapshot.Where(x => x.StandBy == lastStandByEntity).OrderBy(x => x.Timestamp).FirstOrDefaultAsync();
+                StandBySnapshotEntity lastRecord = await DatabaseContext.StandBySnapshot.Where(x => x.StandBy == lastStandByEntity).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync();
 
                 Decimal? onlineDuration = DatabaseContext.State.Where(x => x.StartTimestamp >= lastStandByEntity.StartTimestamp && x.EndTimestamp <= timestamp && x.State == CarState.Online).ToList().Select(x => (Decimal?)((x.EndTimestamp - x.StartTimestamp)?.TotalSeconds)).Sum();
 
@@ -290,8 +290,8 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
             if (lastDrivingEntity != null && lastDrivingEntity.EndTimestamp == null)
             {
                 Decimal fullPower = await GetFullPowerAsync(carEntityId);
-                DrivingSnapshotEntity firstRecord = await DatabaseContext.DrivingSnapshot.Where(x => x.Driving == lastDrivingEntity).OrderBy(x => x.CreateTimestamp).FirstOrDefaultAsync();
-                DrivingSnapshotEntity lastRecord = await DatabaseContext.DrivingSnapshot.Where(x => x.Driving == lastDrivingEntity).OrderByDescending(x => x.CreateTimestamp).FirstOrDefaultAsync();
+                DrivingSnapshotEntity firstRecord = await DatabaseContext.DrivingSnapshot.Where(x => x.Driving == lastDrivingEntity).OrderBy(x => x.Timestamp).FirstOrDefaultAsync();
+                DrivingSnapshotEntity lastRecord = await DatabaseContext.DrivingSnapshot.Where(x => x.Driving == lastDrivingEntity).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync();
 
                 AddressEntity startAddressEntity = null;
                 if (firstRecord?.Location != null)
@@ -365,7 +365,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 
                 lastDrivingEntity.EndTimestamp = timestamp;
                 lastDrivingEntity.EndAddress = endAddressEntity;
-                lastDrivingEntity.EndLocation = lastRecord?.Location;
+                //lastDrivingEntity.EndLocation = lastRecord?.Location;
                 lastDrivingEntity.EndBatteryLevel = lastRecord?.BatteryLevel;
                 lastDrivingEntity.EndOdometer = lastRecord?.Odometer;
                 lastDrivingEntity.EndIdealBatteryRange = lastRecord?.IdealBatteryRange;
@@ -412,11 +412,11 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
             if (lastChargingEntity != null && lastChargingEntity.EndTimestamp == null)
             {
                 Decimal fullPower = await GetFullPowerAsync(carEntityId);
-                ChargingSnapshotEntity firstRecord = await DatabaseContext.ChargingSnapshot.Where(x => x.Charging == lastChargingEntity).OrderBy(x => x.CreateTimestamp).FirstOrDefaultAsync();
-                ChargingSnapshotEntity lastRecord = await DatabaseContext.ChargingSnapshot.Where(x => x.Charging == lastChargingEntity).OrderByDescending(x => x.CreateTimestamp).FirstOrDefaultAsync();
+                ChargingSnapshotEntity firstRecord = await DatabaseContext.ChargingSnapshot.Where(x => x.Charging == lastChargingEntity).OrderBy(x => x.Timestamp).FirstOrDefaultAsync();
+                ChargingSnapshotEntity lastRecord = await DatabaseContext.ChargingSnapshot.Where(x => x.Charging == lastChargingEntity).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync();
 
                 Decimal chargeEnergyUsed = 0m;
-                var details = await DatabaseContext.ChargingSnapshot.Where(x => x.Charging == lastChargingEntity).OrderBy(x => x.CreateTimestamp).Select(x => new
+                var details = await DatabaseContext.ChargingSnapshot.Where(x => x.Charging == lastChargingEntity).OrderBy(x => x.Timestamp).Select(x => new
                 {
                     Timestamp = x.CreateTimestamp,
                     Current = x.ChargerActualCurrent,
@@ -500,7 +500,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
         {
             StandByEntity lastStandByEntity = await DatabaseContext.StandBy.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
 
-            IDatabaseService.StandBySnapshot lastStandBySnapshot = new(await DatabaseContext.StandBySnapshot.Where(x => x.StandBy == lastStandByEntity).OrderByDescending(x => x.CreateTimestamp).FirstOrDefaultAsync());
+            IDatabaseService.StandBySnapshot lastStandBySnapshot = new(await DatabaseContext.StandBySnapshot.Where(x => x.StandBy == lastStandByEntity).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync());
 
             IDatabaseService.StandBySnapshot currentStandBySnapshot = new IDatabaseService.StandBySnapshot(snapshot).Debounce(lastStandBySnapshot);
 
@@ -544,7 +544,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
         {
             DrivingEntity lastDrivingEntity = await DatabaseContext.Driving.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
 
-            IDatabaseService.DrivingSnapshot lastDrivingSnapshot = new(await DatabaseContext.DrivingSnapshot.Where(x => x.Driving == lastDrivingEntity).OrderByDescending(x => x.CreateTimestamp).FirstOrDefaultAsync());
+            IDatabaseService.DrivingSnapshot lastDrivingSnapshot = new(await DatabaseContext.DrivingSnapshot.Where(x => x.Driving == lastDrivingEntity).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync());
 
             IDatabaseService.DrivingSnapshot currentDrivingSnapshot = new IDatabaseService.DrivingSnapshot(snapshot).Debounce(lastDrivingSnapshot);
 
@@ -590,7 +590,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
         {
             ChargingEntity lastChargingEntity = await DatabaseContext.Charging.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
 
-            IDatabaseService.ChargingSnapshot lastChargingSnapshot = new(await DatabaseContext.ChargingSnapshot.Where(x => x.Charging == lastChargingEntity).OrderByDescending(x => x.CreateTimestamp).FirstOrDefaultAsync());
+            IDatabaseService.ChargingSnapshot lastChargingSnapshot = new(await DatabaseContext.ChargingSnapshot.Where(x => x.Charging == lastChargingEntity).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync());
 
             IDatabaseService.ChargingSnapshot currentChargingSnapshot = new IDatabaseService.ChargingSnapshot(snapshot).Debounce(lastChargingSnapshot);
 

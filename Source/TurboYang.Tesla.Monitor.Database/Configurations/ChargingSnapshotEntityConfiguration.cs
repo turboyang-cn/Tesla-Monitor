@@ -11,6 +11,8 @@ namespace TurboYang.Tesla.Monitor.Database.Configurations
         {
             base.Configure(builder);
 
+            builder.HasIndex(x => x.Timestamp);
+
             builder.Property(x => x.ChargingId)
                    .IsRequired();
             builder.Property(x => x.Location)
