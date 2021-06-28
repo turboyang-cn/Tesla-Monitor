@@ -240,6 +240,8 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                                                         Version = carData.CarState.SoftwareUpdate.Version,
                                                         State = carData.CarState.SoftwareUpdate.Status == SoftwareUpdateState.Unavailable ? FirewareState.Updated : FirewareState.Pending,
                                                         Timestamp = Instant.FromDateTimeUtc(DateTime.UtcNow),
+
+                                                        CarId = CarEntityId,
                                                     });
 
                                                     await databaseContext.SaveChangesAsync();
