@@ -78,6 +78,7 @@ namespace TurboYang.Tesla.Monitor.Database
         public DbSet<ChargingSnapshotEntity> ChargingSnapshot { get; set; }
         public DbSet<CarSettingEntity> CarSetting { get; set; }
         public DbSet<AddressEntity> Address { get; set; }
+        public DbSet<FirewareEntity> Fireware { get; set; }
 
         #endregion
 

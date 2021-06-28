@@ -14,8 +14,6 @@ namespace TurboYang.Tesla.Monitor.Database.Entities
     {
         public Instant? StartTimestamp { get; set; }
         public Instant? EndTimestamp { get; set; }
-        public Point StartLocation { get; set; }
-        public Point EndLocation { get; set; }
         public Decimal? StartBatteryLevel { get; set; }
         public Decimal? EndBatteryLevel { get; set; }
         public Decimal? StartPower { get; set; }

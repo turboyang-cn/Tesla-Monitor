@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
@@ -197,7 +198,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
 
             if (lastStandByEntity != null && lastStandByEntity.EndTimestamp == null)
             {
-                Decimal fullPower = await GetFullPowerAsync(carEntityId);
+                Decimal? fullPower = await GetFullPowerAsync(carEntityId);
                 StandBySnapshotEntity firstRecord = await DatabaseContext.StandBySnapshot.Where(x => x.StandBy == lastStandByEntity).OrderBy(x => x.Timestamp).FirstOrDefaultAsync();
                 StandBySnapshotEntity lastRecord = await DatabaseContext.StandBySnapshot.Where(x => x.StandBy == lastStandByEntity).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync();
 
@@ -234,7 +235,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     DatabaseContext.Add(addressEntity);
                 }
 
-                //LastStandByEntity.Location = lastRecord?.Location;
                 lastStandByEntity.Address = addressEntity;
                 lastStandByEntity.Elevation = lastRecord?.Elevation;
                 lastStandByEntity.Heading = lastRecord?.Heading;
@@ -289,7 +289,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
 
             if (lastDrivingEntity != null && lastDrivingEntity.EndTimestamp == null)
             {
-                Decimal fullPower = await GetFullPowerAsync(carEntityId);
+                Decimal? fullPower = await GetFullPowerAsync(carEntityId);
                 DrivingSnapshotEntity firstRecord = await DatabaseContext.DrivingSnapshot.Where(x => x.Driving == lastDrivingEntity).OrderBy(x => x.Timestamp).FirstOrDefaultAsync();
                 DrivingSnapshotEntity lastRecord = await DatabaseContext.DrivingSnapshot.Where(x => x.Driving == lastDrivingEntity).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync();
 
@@ -356,7 +356,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 }
 
                 lastDrivingEntity.StartAddress = startAddressEntity;
-                //LastDrivingEntity.StartLocation = firstRecord?.Location;
                 lastDrivingEntity.StartBatteryLevel = firstRecord?.BatteryLevel;
                 lastDrivingEntity.StartOdometer = firstRecord?.Odometer;
                 lastDrivingEntity.StartIdealBatteryRange = firstRecord?.IdealBatteryRange;
@@ -365,7 +364,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 
                 lastDrivingEntity.EndTimestamp = timestamp;
                 lastDrivingEntity.EndAddress = endAddressEntity;
-                //lastDrivingEntity.EndLocation = lastRecord?.Location;
                 lastDrivingEntity.EndBatteryLevel = lastRecord?.BatteryLevel;
                 lastDrivingEntity.EndOdometer = lastRecord?.Odometer;
                 lastDrivingEntity.EndIdealBatteryRange = lastRecord?.IdealBatteryRange;
@@ -411,7 +409,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
 
             if (lastChargingEntity != null && lastChargingEntity.EndTimestamp == null)
             {
-                Decimal fullPower = await GetFullPowerAsync(carEntityId);
                 ChargingSnapshotEntity firstRecord = await DatabaseContext.ChargingSnapshot.Where(x => x.Charging == lastChargingEntity).OrderBy(x => x.Timestamp).FirstOrDefaultAsync();
                 ChargingSnapshotEntity lastRecord = await DatabaseContext.ChargingSnapshot.Where(x => x.Charging == lastChargingEntity).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync();
 
@@ -464,8 +461,22 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     DatabaseContext.Add(addressEntity);
                 }
 
+                Decimal? fullPower = null;
+                if (lastRecord?.BatteryLevel - firstRecord?.BatteryLevel > 50 && lastRecord?.ChargeEnergyAdded > firstRecord?.ChargeEnergyAdded)
+                {
+                    fullPower = (lastRecord?.ChargeEnergyAdded - firstRecord?.ChargeEnergyAdded) * 100 / (lastRecord?.BatteryLevel - firstRecord?.BatteryLevel);
+
+                    if (fullPower != null)
+                    {
+                        await SetFullPowerAsync(carEntityId, fullPower.Value);
+                    }
+                }
+                else
+                {
+                    fullPower = await GetFullPowerAsync(carEntityId);
+                }
+
                 lastChargingEntity.Address = addressEntity;
-                lastChargingEntity.Location = lastRecord?.Location;
                 lastChargingEntity.Elevation = lastRecord?.Elevation;
                 lastChargingEntity.Heading = lastRecord?.Heading;
                 lastChargingEntity.Odometer = lastRecord?.Odometer;
@@ -640,14 +651,26 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
             }
         }
 
-        private async Task<Decimal> GetFullPowerAsync(Int32 carEntityId)
+        private async Task<Decimal?> GetFullPowerAsync(Int32 carEntityId)
         {
             if (carEntityId > 0)
             {
-                await Task.Delay(1);
+                return await DatabaseContext.CarSetting.Where(x => x.CarId == carEntityId).Select(x => x.FullPower).FirstOrDefaultAsync();
             }
 
-            return 50m;
+            return null;
+        }
+
+        private async Task SetFullPowerAsync(Int32 carEntityId, Decimal fullPower)
+        {
+            if (carEntityId > 0)
+            {
+                CarSettingEntity carSettingEntity = await DatabaseContext.CarSetting.FirstOrDefaultAsync(x => x.CarId == carEntityId);
+
+                carSettingEntity.FullPower = fullPower;
+
+                await DatabaseContext.SaveChangesAsync();
+            }
         }
 
         private Decimal? CalculateEnergyUsed(Decimal? current, Decimal? voltage, Int32? phases, Decimal? power)

@@ -22,7 +22,6 @@ namespace TurboYang.Tesla.Monitor.Database.Entities
         public Decimal? EndIdealBatteryRange { get; set; }
         public Decimal? StartRatedBatteryRange { get; set; }
         public Decimal? EndRatedBatteryRange { get; set; }
-        public Point Location { get; set; }
         public Decimal? Elevation { get; set; }
         public Decimal? Heading { get; set; }
         public Decimal? Odometer { get; set; }

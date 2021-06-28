@@ -15,6 +15,8 @@ using NLog;
 using NodaTime;
 
 using TurboYang.Tesla.Monitor.Client;
+using TurboYang.Tesla.Monitor.Database;
+using TurboYang.Tesla.Monitor.Database.Entities;
 using TurboYang.Tesla.Monitor.Model;
 
 namespace TurboYang.Tesla.Monitor.WebApi.Services
@@ -63,6 +65,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
             private IServiceScopeFactory ServiceScopeFactory { get; }
             private Int32 CarEntityId { get; }
             private String Name { get; set; }
+            private String Version { get; set; }
             private String AccessToken { get; }
             private String CarId { get; }
             private Int64 VehicleId { get; }
@@ -196,13 +199,53 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
 
                                         if (Name == null)
                                         {
-                                            Name = carData.DisplayName;
-
                                             using (IServiceScope scope = ServiceScopeFactory.CreateScope())
                                             {
-                                                IDatabaseService databaseService = scope.ServiceProvider.GetService<IDatabaseService>();
+                                                DatabaseContext databaseContext = scope.ServiceProvider.GetService<DatabaseContext>();
 
-                                                await databaseService.UpdateCarAsync(CarEntityId, carData.DisplayName, carData.Vin, carData.CarConfig?.ExteriorColor, carData.CarConfig?.WheelType, carData.CarConfig?.Type);
+                                                CarEntity carEntity = await databaseContext.Car.FirstOrDefaultAsync(x => x.Id == CarEntityId);
+
+                                                carEntity.Name = carData.DisplayName;
+                                                carEntity.Vin = carData.Vin;
+                                                carEntity.ExteriorColor = carData.CarConfig?.ExteriorColor;
+                                                carEntity.WheelType = carData.CarConfig?.WheelType;
+                                                carEntity.Type = carData.CarConfig?.Type;
+
+                                                await databaseContext.SaveChangesAsync();
+                                            }
+
+                                            Name = carData.DisplayName;
+                                        }
+
+                                        if (carData.CarState?.SoftwareUpdate?.Version != null)
+                                        {
+                                            if (Version == null)
+                                            {
+                                                using (IServiceScope scope = ServiceScopeFactory.CreateScope())
+                                                {
+                                                    DatabaseContext databaseContext = scope.ServiceProvider.GetService<DatabaseContext>();
+
+                                                    Version = await databaseContext.Fireware.Where(x => x.CarId == CarEntityId).OrderByDescending(x => x.Timestamp).Select(x => x.Version).FirstOrDefaultAsync();
+                                                }
+                                            }
+
+                                            if (Version != carData.CarState.SoftwareUpdate.Version)
+                                            {
+                                                using (IServiceScope scope = ServiceScopeFactory.CreateScope())
+                                                {
+                                                    DatabaseContext databaseContext = scope.ServiceProvider.GetService<DatabaseContext>();
+
+                                                    databaseContext.Fireware.Add(new FirewareEntity()
+                                                    {
+                                                        Version = carData.CarState.SoftwareUpdate.Version,
+                                                        State = carData.CarState.SoftwareUpdate.Status == SoftwareUpdateState.Unavailable ? FirewareState.Updated : FirewareState.Pending,
+                                                        Timestamp = Instant.FromDateTimeUtc(DateTime.UtcNow),
+                                                    });
+
+                                                    await databaseContext.SaveChangesAsync();
+                                                }
+
+                                                Version = carData.CarState.SoftwareUpdate.Version;
                                             }
                                         }
 

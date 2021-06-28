@@ -64,7 +64,8 @@ namespace TurboYang.Tesla.Monitor.WebApi.Controllers
                         {
                             IsSamplingCompression = x.CarSetting.IsSamplingCompression,
                             SamplingRate = x.CarSetting.SamplingRate,
-                            TryAsleepDelay = x.CarSetting.TryAsleepDelay, 
+                            TryAsleepDelay = x.CarSetting.TryAsleepDelay,
+                            FullPower = x.CarSetting.FullPower,
                         } : null,
                     }).ToList(),
                 };
@@ -165,6 +166,22 @@ namespace TurboYang.Tesla.Monitor.WebApi.Controllers
                 {
                 }
 
+                if (carData?.CarState?.SoftwareUpdate?.Version != null)
+                {
+                    DatabaseContext.Fireware.Add(new FirewareEntity()
+                    {
+                        Version = carData.CarState.SoftwareUpdate.Version,
+                        State = carData.CarState.SoftwareUpdate.Status == SoftwareUpdateState.Unavailable ? FirewareState.Updated : FirewareState.Pending,
+                        Timestamp = Instant.FromDateTimeUtc(DateTime.UtcNow),
+                    });
+                }
+
+                Decimal? fullPower = null;
+                if (carData != null && carData.CarConfig.Type == CarType.Model3)
+                {
+                    fullPower = 55;
+                }
+
                 carEntity = new CarEntity()
                 {
                     CarId = request.CarId,
@@ -180,6 +197,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Controllers
                         IsSamplingCompression = request.IsSamplingCompression,
                         SamplingRate = request.SamplingRate,
                         TryAsleepDelay = request.TryAsleepDelay,
+                        FullPower = fullPower,
                     },
                 };
 
@@ -354,6 +372,8 @@ namespace TurboYang.Tesla.Monitor.WebApi.Controllers
                     public Boolean? IsSamplingCompression { get; init; }
                     [JsonPropertyName("tryAsleepDelay")]
                     public Int32? TryAsleepDelay { get; init; }
+                    [JsonPropertyName("fullPower")]
+                    public Decimal? FullPower { get; init; }
                 }
             }
         }

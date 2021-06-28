@@ -13,8 +13,6 @@ namespace TurboYang.Tesla.Monitor.Database.Configurations
 
             builder.Property(x => x.CarId)
                    .IsRequired();
-            builder.Property(x => x.Location)
-                   .HasColumnType("geography (point)");
         }
     }
 }
