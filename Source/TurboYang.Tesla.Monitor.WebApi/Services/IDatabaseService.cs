@@ -126,7 +126,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 ChargeCable = carData?.ChargeState?.ChargeCable;
                 FastChargerBrand = carData?.ChargeState?.FastChargerBrand;
                 FastChargerType = carData?.ChargeState?.FastChargerType;
-                //Timestamp = streamingData?.Timestamp ?? carData?.CarConfig?.Timestamp;
             }
 
             public Snapshot(SnapshotEntity snapshotEntity)
@@ -155,7 +154,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 IsClimateOn = snapshotEntity?.IsClimateOn;
                 IsBatteryHeater = snapshotEntity?.IsBatteryHeater;
                 IsBatteryHeaterOn = snapshotEntity?.IsBatteryHeaterOn;
-                //Timestamp = snapshotEntity?.CreateTimestamp;
             }
 
             public Snapshot Debounce(Snapshot baseSnapshot)
@@ -191,7 +189,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     IsClimateOn = IsClimateOn ?? baseSnapshot.IsClimateOn,
                     IsBatteryHeater = IsBatteryHeater ?? baseSnapshot.IsBatteryHeater,
                     IsBatteryHeaterOn = IsBatteryHeaterOn ?? baseSnapshot.IsBatteryHeaterOn,
-                    //Timestamp = Timestamp ?? baseSnapshot.Timestamp,
                 };
             }
         }
@@ -249,7 +246,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 IsClimateOn = snapshot?.IsClimateOn;
                 IsBatteryHeater = snapshot?.IsBatteryHeater;
                 IsBatteryHeaterOn = snapshot?.IsBatteryHeaterOn;
-                //Timestamp = snapshot?.Timestamp;
             }
 
             public StandBySnapshot(StandBySnapshotEntity standBySnapshotEntity)
@@ -276,7 +272,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 IsClimateOn = standBySnapshotEntity?.IsClimateOn;
                 IsBatteryHeater = standBySnapshotEntity?.IsBatteryHeater;
                 IsBatteryHeaterOn = standBySnapshotEntity?.IsBatteryHeaterOn;
-                //Timestamp = standBySnapshotEntity?.CreateTimestamp;
             }
 
             public StandBySnapshot Debounce(StandBySnapshot baseSnapshot)
@@ -310,7 +305,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     IsClimateOn = IsClimateOn ?? baseSnapshot.IsClimateOn,
                     IsBatteryHeater = IsBatteryHeater ?? baseSnapshot.IsBatteryHeater,
                     IsBatteryHeaterOn = IsBatteryHeaterOn ?? baseSnapshot.IsBatteryHeaterOn,
-                    //Timestamp = Timestamp ?? baseSnapshot.Timestamp,
                 };
             }
         }
@@ -372,7 +366,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 IsClimateOn = snapshot?.IsClimateOn;
                 IsBatteryHeater = snapshot?.IsBatteryHeater;
                 IsBatteryHeaterOn = snapshot?.IsBatteryHeaterOn;
-                //Timestamp = snapshot?.Timestamp;
             }
 
             public DrivingSnapshot(DrivingSnapshotEntity drivingSnapshotEntity)
@@ -401,7 +394,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 IsClimateOn = drivingSnapshotEntity?.IsClimateOn;
                 IsBatteryHeater = drivingSnapshotEntity?.IsBatteryHeater;
                 IsBatteryHeaterOn = drivingSnapshotEntity?.IsBatteryHeaterOn;
-                //Timestamp = drivingSnapshotEntity?.CreateTimestamp;
             }
 
             public DrivingSnapshot Debounce(DrivingSnapshot baseSnapshot)
@@ -437,7 +429,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     IsClimateOn = IsClimateOn ?? baseSnapshot.IsClimateOn,
                     IsBatteryHeater = IsBatteryHeater ?? baseSnapshot.IsBatteryHeater,
                     IsBatteryHeaterOn = IsBatteryHeaterOn ?? baseSnapshot.IsBatteryHeaterOn,
-                    //Timestamp = Timestamp ?? baseSnapshot.Timestamp,
                 };
             }
         }
@@ -515,7 +506,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 ChargeCable = snapshot?.ChargeCable;
                 FastChargerBrand = snapshot?.FastChargerBrand;
                 FastChargerType = snapshot?.FastChargerType;
-                //Timestamp = snapshot?.Timestamp;
             }
 
             public ChargingSnapshot(ChargingSnapshotEntity ChargingSnapshotEntity)
@@ -552,7 +542,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 ChargeCable = ChargingSnapshotEntity?.ChargeCable;
                 FastChargerBrand = ChargingSnapshotEntity?.FastChargerBrand;
                 FastChargerType = ChargingSnapshotEntity?.FastChargerType;
-                //Timestamp = ChargingSnapshotEntity?.CreateTimestamp;
             }
 
             public ChargingSnapshot Debounce(ChargingSnapshot baseSnapshot)
@@ -596,7 +585,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     ChargeCable = ChargeCable ?? baseSnapshot.ChargeCable,
                     FastChargerBrand = FastChargerBrand ?? baseSnapshot.FastChargerBrand,
                     FastChargerType = FastChargerType ?? baseSnapshot.FastChargerType,
-                    //Timestamp = Timestamp ?? baseSnapshot.Timestamp,
                 };
             }
         }

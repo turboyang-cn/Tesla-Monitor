@@ -65,7 +65,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
             private IServiceScopeFactory ServiceScopeFactory { get; }
             private Int32 CarEntityId { get; }
             private String Name { get; set; }
-            private String Version { get; set; }
+            private (String Version, FirewareState? State) Fireware { get; set; }
             private String AccessToken { get; }
             private String CarId { get; }
             private Int64 VehicleId { get; }
@@ -217,23 +217,36 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                                             Name = carData.DisplayName;
                                         }
 
-                                        if (carData.CarState?.SoftwareUpdate?.Version != null)
+                                        if (carData.CarState?.SoftwareUpdate?.Version != null && carData.CarState?.SoftwareUpdate?.Status != null)
                                         {
-                                            if (Version == null)
+                                            if (Fireware.Version == null || Fireware.State == null)
                                             {
                                                 using (IServiceScope scope = ServiceScopeFactory.CreateScope())
                                                 {
                                                     DatabaseContext databaseContext = scope.ServiceProvider.GetService<DatabaseContext>();
 
-                                                    Version = await databaseContext.Fireware.Where(x => x.CarId == CarEntityId).OrderByDescending(x => x.Timestamp).Select(x => x.Version).FirstOrDefaultAsync();
+                                                    var fireware = await databaseContext.Fireware.Where(x => x.CarId == CarEntityId).OrderByDescending(x => x.Timestamp).Select(x => new
+                                                    {
+                                                        Version = x.Version,
+                                                        State = x.State
+                                                    }).FirstOrDefaultAsync();
+
+                                                    Fireware = (fireware.Version, fireware.State);
                                                 }
                                             }
 
-                                            if (Version != carData.CarState.SoftwareUpdate.Version)
+                                            if (Fireware.Version != carData.CarState.SoftwareUpdate.Version)
                                             {
                                                 using (IServiceScope scope = ServiceScopeFactory.CreateScope())
                                                 {
                                                     DatabaseContext databaseContext = scope.ServiceProvider.GetService<DatabaseContext>();
+
+                                                    FirewareEntity firewareEntity = await databaseContext.Fireware.Where(x => x.CarId == CarEntityId).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync();
+
+                                                    if (firewareEntity != null)
+                                                    {
+                                                        firewareEntity.State = FirewareState.Updated;
+                                                    }
 
                                                     databaseContext.Fireware.Add(new FirewareEntity()
                                                     {
@@ -246,8 +259,22 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
 
                                                     await databaseContext.SaveChangesAsync();
                                                 }
+                                            }
+                                            else if (carData.CarState.SoftwareUpdate.Status == SoftwareUpdateState.Unavailable && Fireware.State == FirewareState.Pending)
+                                            {
+                                                using (IServiceScope scope = ServiceScopeFactory.CreateScope())
+                                                {
+                                                    DatabaseContext databaseContext = scope.ServiceProvider.GetService<DatabaseContext>();
 
-                                                Version = carData.CarState.SoftwareUpdate.Version;
+                                                    FirewareEntity firewareEntity = await databaseContext.Fireware.Where(x => x.CarId == CarEntityId).OrderByDescending(x => x.Timestamp).FirstOrDefaultAsync();
+
+                                                    if (firewareEntity != null)
+                                                    {
+                                                        firewareEntity.State = FirewareState.Updated;
+                                                    }
+
+                                                    await databaseContext.SaveChangesAsync();
+                                                }
                                             }
                                         }
 
