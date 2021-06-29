@@ -231,7 +231,10 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                                                         State = x.State
                                                     }).FirstOrDefaultAsync();
 
-                                                    Fireware = (fireware.Version, fireware.State);
+                                                    if (fireware != null)
+                                                    {
+                                                        Fireware = (fireware.Version, fireware.State);
+                                                    }
                                                 }
                                             }
 
@@ -248,16 +251,20 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                                                         firewareEntity.State = FirewareState.Updated;
                                                     }
 
-                                                    databaseContext.Fireware.Add(new FirewareEntity()
+                                                    FirewareEntity newFirewareEntity = new FirewareEntity()
                                                     {
                                                         Version = carData.CarState.SoftwareUpdate.Version,
                                                         State = carData.CarState.SoftwareUpdate.Status == SoftwareUpdateState.Unavailable ? FirewareState.Updated : FirewareState.Pending,
                                                         Timestamp = Instant.FromDateTimeUtc(DateTime.UtcNow),
 
                                                         CarId = CarEntityId,
-                                                    });
+                                                    };
+
+                                                    databaseContext.Fireware.Add(newFirewareEntity);
 
                                                     await databaseContext.SaveChangesAsync();
+
+                                                    Fireware = (newFirewareEntity.Version, newFirewareEntity.State);
                                                 }
                                             }
                                             else if (carData.CarState.SoftwareUpdate.Status == SoftwareUpdateState.Unavailable && Fireware.State == FirewareState.Pending)
@@ -274,6 +281,8 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                                                     }
 
                                                     await databaseContext.SaveChangesAsync();
+
+                                                    Fireware = (firewareEntity.Version, firewareEntity.State);
                                                 }
                                             }
                                         }
