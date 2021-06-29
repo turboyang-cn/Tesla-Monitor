@@ -2,7 +2,7 @@ version: "3"
 
 services:
   tesla-monitor:
-    image: turboyangcn/turboyangteslamonitorwebapi:latest
+    image: turboyangcn/tesla-monitor:latest
     container_name: 'Tesla-Monitor'
     restart: always
     environment:
@@ -32,7 +32,25 @@ services:
       - ./Database:/var/lib/postgresql/data
     networks:
       - network
-      
+
+  grafana:
+    image: turboyangcn/tesla-monitor-grafana:latest
+    container_name: 'Tesla-Monitor-Grafana'
+    restart: always
+    depends_on:
+      - database
+    environment:
+      - DATABASE_HOST=database
+      - DATABASE_PORT=5432
+      - DATABASE_USER=postgres
+      - DATABASE_PASS=postgres
+      - DATABASE_NAME=TeslaMonitor
+      - TZ=Asia/Shanghai
+    ports:
+      - 7000:3000
+    networks:
+      - network
+
 networks:
   network:
    name: 'Tesla Monitor Network'

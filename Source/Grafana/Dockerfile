@@ -1,4 +1,4 @@
-FROM grafana/grafana:7.5.8
+FROM grafana/grafana:latest
 
 ENV GF_ANALYTICS_REPORTING_ENABLED=FALSE \
     GF_AUTH_ANONYMOUS_ENABLED=true \
@@ -12,11 +12,6 @@ ENV GF_ANALYTICS_REPORTING_ENABLED=FALSE \
     DATABASE_PORT=5432
 
 USER root
-
-RUN grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install pr0ps-trackmap-panel 2.1.2 && \
-    grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install natel-discrete-panel 0.1.0 && \
-    grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install grafana-piechart-panel 1.6.1 && \
-    grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" --pluginUrl https://github.com/panodata/grafana-map-panel/releases/download/0.15.0/grafana-map-panel-0.15.0.zip plugins install grafana-worldmap-panel-ng
 
 USER grafana
 

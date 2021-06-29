@@ -14,7 +14,7 @@ datasources:
   secureJsonData:
     password: $DATABASE_PASS
   jsonData:
-    postgresVersion: 1200
+    postgresVersion: 1300
     sslmode: disable
   version: 1
   editable: false
