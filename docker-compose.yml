@@ -48,6 +48,8 @@ services:
       - TZ=Asia/Shanghai
     ports:
       - 7000:3000
+    volumes:
+      - ./Grafana:/var/lib/grafana
     networks:
       - network
 
