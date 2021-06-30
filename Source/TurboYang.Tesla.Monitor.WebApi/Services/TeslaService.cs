@@ -251,7 +251,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                                                         firewareEntity.State = FirewareState.Updated;
                                                     }
 
-                                                    FirewareEntity newFirewareEntity = new FirewareEntity()
+                                                    FirewareEntity newFirewareEntity = new()
                                                     {
                                                         Version = carData.CarState.SoftwareUpdate.Version,
                                                         State = carData.CarState.SoftwareUpdate.Status == SoftwareUpdateState.Unavailable ? FirewareState.Updated : FirewareState.Pending,

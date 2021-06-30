@@ -166,18 +166,6 @@ namespace TurboYang.Tesla.Monitor.WebApi.Controllers
                 {
                 }
 
-                if (carData?.CarState?.SoftwareUpdate?.Version != null)
-                {
-                    DatabaseContext.Fireware.Add(new FirewareEntity()
-                    {
-                        Version = carData.CarState.SoftwareUpdate.Version,
-                        State = carData.CarState.SoftwareUpdate.Status == SoftwareUpdateState.Unavailable ? FirewareState.Updated : FirewareState.Pending,
-                        Timestamp = Instant.FromDateTimeUtc(DateTime.UtcNow),
-
-                        Car = carEntity,
-                    });
-                }
-
                 Decimal? fullPower = null;
                 if (carData != null && carData.CarConfig.Type == CarType.Model3)
                 {
@@ -204,6 +192,18 @@ namespace TurboYang.Tesla.Monitor.WebApi.Controllers
                 };
 
                 DatabaseContext.Car.Add(carEntity);
+
+                if (carData?.CarState?.SoftwareUpdate?.Version != null)
+                {
+                    DatabaseContext.Fireware.Add(new FirewareEntity()
+                    {
+                        Version = carData.CarState.SoftwareUpdate.Version,
+                        State = carData.CarState.SoftwareUpdate.Status == SoftwareUpdateState.Unavailable ? FirewareState.Updated : FirewareState.Pending,
+                        Timestamp = Instant.FromDateTimeUtc(DateTime.UtcNow),
+
+                        Car = carEntity,
+                    });
+                }
 
                 await DatabaseContext.SaveChangesAsync();
 
