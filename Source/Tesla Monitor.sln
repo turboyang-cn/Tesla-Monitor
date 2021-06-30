@@ -26,6 +26,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grafana", "Grafana", "{8032
 	ProjectSection(SolutionItems) = preProject
 		Grafana\DataSource.yml = Grafana\DataSource.yml
 		Grafana\Dockerfile = Grafana\Dockerfile
+		Grafana\Grafana.ini = Grafana\Grafana.ini
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dashboards", "Dashboards", "{89C9D087-3E60-4B78-941C-F955F4034DEA}"
+	ProjectSection(SolutionItems) = preProject
+		Grafana\Dashboards\home.json = Grafana\Dashboards\home.json
 	EndProjectSection
 EndProject
 Global
@@ -65,6 +71,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{89C9D087-3E60-4B78-941C-F955F4034DEA} = {8032FCC3-4EFC-489E-8AD5-AEEAC15FF9A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {774F0FE9-6836-4DA2-BAE5-C09D56B52472}
