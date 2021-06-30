@@ -14,6 +14,8 @@ USER root
 
 USER grafana
 
+COPY Grafana.ini /etc/grafana/grafana.ini
 COPY DataSource.yml /etc/grafana/provisioning/datasources/datasource.yml
+COPY Dashboards/home.json /etc/grafana/provisioning/dashboards/home.json
 
 EXPOSE 3000
