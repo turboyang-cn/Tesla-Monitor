@@ -13,6 +13,8 @@ namespace TurboYang.Tesla.Monitor.Database.Configurations
             builder.HasKey(x => x.Id);
 
             builder.HasIndex(x => x.OpenId);
+            builder.HasIndex(x => x.CreateTimestamp);
+            builder.HasIndex(x => x.UpdateTimestamp);
 
             builder.Property(x => x.Id)
                    .IsRequired()

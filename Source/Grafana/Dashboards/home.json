@@ -17,9 +17,23 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1625179783446,
+  "iteration": 1625181087830,
   "links": [],
   "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 33,
+      "panels": [],
+      "title": "Vehicle Status",
+      "type": "row"
+    },
     {
       "datasource": null,
       "description": "",
@@ -46,7 +60,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 10,
       "options": {
@@ -64,7 +78,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "repeat": null,
       "targets": [
         {
@@ -72,7 +86,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"State\"\nFROM \"State\"\nWHERE\n  \"State\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"CreateTimestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  \"State\"\nFROM \"State\"\nWHERE\n  \"State\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"CreateTimestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -128,7 +142,7 @@
         "h": 3,
         "w": 3,
         "x": 3,
-        "y": 0
+        "y": 1
       },
       "id": 16,
       "options": {
@@ -146,14 +160,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
           "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Version\"\nFROM \"Fireware\"\nWHERE\n  \"Version\" IS NOT NULL AND \"State\" = 'Updated' AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  \"Version\"\nFROM \"Fireware\"\nWHERE\n  \"Version\" IS NOT NULL AND \"State\" = 'Updated' AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -238,7 +252,7 @@
         "h": 3,
         "w": 3,
         "x": 6,
-        "y": 0
+        "y": 1
       },
       "id": 12,
       "options": {
@@ -256,15 +270,15 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "repeat": null,
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  (CASE\n    WHEN '$LengthUnit' = 'Kilometer' THEN \"Odometer\" * 25146 / 15625\n    ELSE\n      \"Odometer\"\n    END) AS \"Odometer_$LengthUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"Odometer\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  (CASE\n    WHEN '$LengthUnit' = 'Kilometer' THEN \"Odometer\" * 25146 / 15625\n    ELSE\n      \"Odometer\"\n    END) AS \"Odometer_$LengthUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"Odometer\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -350,7 +364,7 @@
         "h": 3,
         "w": 3,
         "x": 9,
-        "y": 0
+        "y": 1
       },
       "id": 14,
       "options": {
@@ -368,14 +382,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  (CASE\n    WHEN '$LengthUnit' = 'Kilometer' THEN \"BatteryRange\" * 25146 / 15625\n    ELSE\n      \"BatteryRange\"\n    END) AS \"BatteryRange_$LengthUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"BatteryRange\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  (CASE\n    WHEN '$LengthUnit' = 'Kilometer' THEN \"BatteryRange\" * 25146 / 15625\n    ELSE\n      \"BatteryRange\"\n    END) AS \"BatteryRange_$LengthUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"BatteryRange\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -414,12 +428,12 @@
         "h": 14,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 1
       },
       "hideEmpty": false,
       "hideZero": false,
       "id": 29,
-      "initialZoom": "17",
+      "initialZoom": "18",
       "locationData": "table",
       "mapCenter": "Last GeoHash",
       "mapCenterLatitude": 24.491872,
@@ -442,7 +456,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  5::float as \"metric\",\n  st_y(\"Location\"::geometry) as \"latitude\",\n  st_x(\"Location\"::geometry) as \"longitude\"\nFROM \"Snapshot\"\nWHERE\n  \"Location\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  5::float as \"metric\",\n  st_y(\"Location\"::geometry) as \"latitude\",\n  st_x(\"Location\"::geometry) as \"longitude\"\nFROM \"Snapshot\"\nWHERE\n  \"Location\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -520,7 +534,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 3
+        "y": 4
       },
       "id": 2,
       "options": {
@@ -535,14 +549,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  \"BatteryLevel\"\nFROM \"Snapshot\"\nWHERE\n  \"BatteryLevel\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  \"BatteryLevel\"\nFROM \"Snapshot\"\nWHERE\n  \"BatteryLevel\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -579,7 +593,7 @@
           "mappings": [],
           "max": 400,
           "min": 0,
-          "noValue": "- V",
+          "noValue": "0 V",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -597,7 +611,7 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 3
+        "y": 4
       },
       "id": 4,
       "options": {
@@ -612,14 +626,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  \"ChargerVoltage\"\nFROM \"Snapshot\"\nWHERE\n  \"ChargerVoltage\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  \"ChargerVoltage\"\nFROM \"Snapshot\"\nWHERE\n  \"ChargerVoltage\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -656,7 +670,7 @@
           "mappings": [],
           "max": 32,
           "min": 0,
-          "noValue": "- A",
+          "noValue": "0 A",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -674,7 +688,7 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 3
+        "y": 4
       },
       "id": 6,
       "options": {
@@ -689,14 +703,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  \"ChargerActualCurrent\"\nFROM \"Snapshot\"\nWHERE\n  \"ChargerActualCurrent\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  \"ChargerActualCurrent\"\nFROM \"Snapshot\"\nWHERE\n  \"ChargerActualCurrent\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -731,7 +745,7 @@
             "mode": "thresholds"
           },
           "mappings": [],
-          "noValue": "- kWh",
+          "noValue": "0 kWh",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -749,7 +763,7 @@
         "h": 4,
         "w": 3,
         "x": 9,
-        "y": 3
+        "y": 4
       },
       "id": 8,
       "options": {
@@ -764,15 +778,15 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  \"ChargerPower\"\nFROM \"Snapshot\"\nWHERE\n  \"ChargerPower\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  \"ChargerPower\"\nFROM \"Snapshot\"\nWHERE\n  \"ChargerPower\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -931,7 +945,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 7
+        "y": 8
       },
       "id": 18,
       "options": {
@@ -946,14 +960,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  (CASE\n    WHEN '$TemperatureUnit' = 'Fahrenheit' THEN round(\"OutsideTemperature\" * 9 / 5 + 32, 1)\n    ELSE\n      \"OutsideTemperature\"\n    END) AS \"OutsideTemperature_$TemperatureUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"OutsideTemperature\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  (CASE\n    WHEN '$TemperatureUnit' = 'Fahrenheit' THEN round(\"OutsideTemperature\" * 9 / 5 + 32, 1)\n    ELSE\n      \"OutsideTemperature\"\n    END) AS \"OutsideTemperature_$TemperatureUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"OutsideTemperature\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1112,7 +1126,7 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 7
+        "y": 8
       },
       "id": 19,
       "options": {
@@ -1127,14 +1141,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  (CASE\n    WHEN '$TemperatureUnit' = 'Fahrenheit' THEN round(\"InsideTemperature\" * 9 / 5 + 32, 1)\n    ELSE\n      \"InsideTemperature\"\n    END) AS \"InsideTemperature_$TemperatureUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"InsideTemperature\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  (CASE\n    WHEN '$TemperatureUnit' = 'Fahrenheit' THEN round(\"InsideTemperature\" * 9 / 5 + 32, 1)\n    ELSE\n      \"InsideTemperature\"\n    END) AS \"InsideTemperature_$TemperatureUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"InsideTemperature\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1237,7 +1251,7 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 7
+        "y": 8
       },
       "id": 20,
       "options": {
@@ -1252,14 +1266,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  (CASE\n    WHEN '$TemperatureUnit' = 'Fahrenheit' THEN round(\"DriverTemperatureSetting\" * 9 / 5 + 32, 1)\n    ELSE\n      \"DriverTemperatureSetting\"\n    END) AS \"DriverTemperatureSetting_$TemperatureUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"DriverTemperatureSetting\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  (CASE\n    WHEN '$TemperatureUnit' = 'Fahrenheit' THEN round(\"DriverTemperatureSetting\" * 9 / 5 + 32, 1)\n    ELSE\n      \"DriverTemperatureSetting\"\n    END) AS \"DriverTemperatureSetting_$TemperatureUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"DriverTemperatureSetting\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1362,7 +1376,7 @@
         "h": 4,
         "w": 3,
         "x": 9,
-        "y": 7
+        "y": 8
       },
       "id": 21,
       "options": {
@@ -1377,14 +1391,14 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  (CASE\n    WHEN '$TemperatureUnit' = 'Fahrenheit' THEN round(\"PassengerTemperatureSetting\" * 9 / 5 + 32, 1)\n    ELSE\n      \"PassengerTemperatureSetting\"\n    END) AS \"PassengerTemperatureSetting_$TemperatureUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"PassengerTemperatureSetting\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  (CASE\n    WHEN '$TemperatureUnit' = 'Fahrenheit' THEN round(\"PassengerTemperatureSetting\" * 9 / 5 + 32, 1)\n    ELSE\n      \"PassengerTemperatureSetting\"\n    END) AS \"PassengerTemperatureSetting_$TemperatureUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"PassengerTemperatureSetting\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1419,6 +1433,7 @@
           "color": {
             "mode": "thresholds"
           },
+          "decimals": 0,
           "mappings": [],
           "noValue": "- km",
           "thresholds": {
@@ -1452,7 +1467,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Odometer_Mile"
+              "options": "Speed_Mile"
             },
             "properties": [
               {
@@ -1471,7 +1486,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 11
+        "y": 12
       },
       "id": 22,
       "options": {
@@ -1489,14 +1504,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  (CASE\n    WHEN '$LengthUnit' = 'Kilometer' AND \"ShiftState\" = 'R' THEN -\"Speed\" * 25146 / 15625\n    WHEN '$LengthUnit' = 'Kilometer' AND \"ShiftState\" <> 'R' THEN \"Speed\" * 25146 / 15625\n    WHEN '$LengthUnit' = 'Mile' AND \"ShiftState\" = 'R' THEN -\"Speed\"\n    WHEN '$LengthUnit' = 'Mile' AND \"ShiftState\" <> 'R' THEN \"Speed\"\n    END) AS \"Speed_$LengthUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"Speed\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  (CASE\n    WHEN '$LengthUnit' = 'Kilometer' AND \"ShiftState\" = 'R' THEN -\"Speed\" * 25146 / 15625\n    WHEN '$LengthUnit' = 'Kilometer' AND \"ShiftState\" <> 'R' THEN \"Speed\" * 25146 / 15625\n    WHEN '$LengthUnit' = 'Mile' AND \"ShiftState\" = 'R' THEN -\"Speed\"\n    WHEN '$LengthUnit' = 'Mile' AND \"ShiftState\" <> 'R' THEN \"Speed\"\n    END) AS \"Speed_$LengthUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"Speed\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1583,7 +1598,7 @@
         "h": 3,
         "w": 3,
         "x": 3,
-        "y": 11
+        "y": 12
       },
       "id": 23,
       "options": {
@@ -1601,14 +1616,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  (CASE\n    WHEN '$LengthUnit' = 'Kilometer' THEN \"Elevation\"\n    WHEN '$LengthUnit' = 'Mile' THEN \"Elevation\" * 3.2808399\n    END) AS \"Elevation_$LengthUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"Elevation\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  (CASE\n    WHEN '$LengthUnit' = 'Kilometer' THEN \"Elevation\"\n    WHEN '$LengthUnit' = 'Mile' THEN \"Elevation\" * 3.2808399\n    END) AS \"Elevation_$LengthUnit\"\nFROM \"Snapshot\"\nWHERE\n  \"Elevation\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1687,7 +1702,7 @@
         "h": 3,
         "w": 3,
         "x": 6,
-        "y": 11
+        "y": 12
       },
       "id": 24,
       "options": {
@@ -1705,14 +1720,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
           "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  (CASE\n    WHEN \"ShiftState\" = 'N' THEN 1\n    WHEN \"ShiftState\" = 'D' THEN 2\n    WHEN \"ShiftState\" = 'R' THEN 3\n    ELSE\n      0\n  END) AS \"ShiftState\"\nFROM \"Snapshot\"\nWHERE\n  \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  (CASE\n    WHEN \"ShiftState\" = 'N' THEN 1\n    WHEN \"ShiftState\" = 'D' THEN 2\n    WHEN \"ShiftState\" = 'R' THEN 3\n    ELSE\n      0\n  END) AS \"ShiftState\"\nFROM \"Snapshot\"\nWHERE\n  \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1766,7 +1781,7 @@
         "h": 3,
         "w": 3,
         "x": 9,
-        "y": 11
+        "y": 12
       },
       "id": 25,
       "options": {
@@ -1784,14 +1799,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.3",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  \"Timestamp\" AS \"time\",\n  \"Power\"\nFROM \"Snapshot\"\nWHERE\n  \"Power\" IS NOT NULL AND \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  \"Power\"\nFROM \"Snapshot\"\nWHERE\n  \"Power\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1815,9 +1830,125 @@
       ],
       "title": "Using Power",
       "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 35,
+      "panels": [],
+      "title": "Row title",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  \"Timestamp\" AS \"time\",\r\n  \"Speed\"\r\nFROM \"DrivingSnapshot\"\r\nWHERE\r\n  \"DrivingId\" = (SELECT \"Id\" FROM \"Driving\" WHERE \"StartTimestamp\" IS NOT NULL AND \"EndTimestamp\" IS NOT NULL ORDER BY \"CreateTimestamp\" DESC LIMIT 1)\r\nORDER BY \"Timestamp\"",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "\"Speed\""
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "\"DrivingSnapshot\"",
+          "timeColumn": "\"Timestamp\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Panel Title",
+      "type": "timeseries"
     }
   ],
-  "refresh": "5s",
+  "refresh": "100ms",
   "schemaVersion": 30,
   "style": "dark",
   "tags": [],
@@ -1836,9 +1967,9 @@
         "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": "Car",
+        "label": "Vehicle",
         "multi": false,
-        "name": "Car",
+        "name": "Vehicle",
         "options": [],
         "query": "SELECT \"Name\" AS __text, \"Id\" AS __value FROM \"Car\";",
         "refresh": 1,
@@ -1850,7 +1981,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "Kilometer",
           "value": "Kilometer"
         },
@@ -1916,7 +2047,10 @@
     "to": "now"
   },
   "timepicker": {
+    "hidden": true,
     "refresh_intervals": [
+      "100ms",
+      "1s",
       "5s",
       "10s",
       "30s",
@@ -1932,5 +2066,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "0aX7n0k7z",
-  "version": 42
+  "version": 52
 }
