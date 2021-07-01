@@ -321,10 +321,10 @@ namespace TurboYang.Tesla.Monitor.Client
             public Decimal BatteryLevel { get; init; }
             [JsonPropertyName("battery_range")]
             [JsonConverter(typeof(MileToDistanceConverter))]
-            public Distance BatteryRange { get; init; }
+            public Distance RatedBatteryRange { get; init; }
             [JsonPropertyName("est_battery_range")]
             [JsonConverter(typeof(MileToDistanceConverter))]
-            public Distance RatedBatteryRange { get; init; }
+            public Distance EstimateBatteryRange { get; init; }
             [JsonPropertyName("ideal_battery_range")]
             [JsonConverter(typeof(MileToDistanceConverter))]
             public Distance IdealBatteryRange { get; init; }

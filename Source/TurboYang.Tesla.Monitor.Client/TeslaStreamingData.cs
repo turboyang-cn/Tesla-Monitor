@@ -68,18 +68,18 @@ namespace TurboYang.Tesla.Monitor.Client
                 {
                     Power = power;
                 }
-                if (Decimal.TryParse(values[10], out Decimal idealBatteryRange))
+                if (Decimal.TryParse(values[10], out Decimal batteryRange))
                 {
-                    IdealBatteryRange = new Distance()
+                    BatteryRange = new Distance()
                     {
-                        Mile = idealBatteryRange,
+                        Mile = batteryRange,
                     };
                 }
-                if (Decimal.TryParse(values[11], out Decimal ratedBatteryRange))
+                if (Decimal.TryParse(values[11], out Decimal estimateBatteryRange))
                 {
-                    RatedBatteryRange = new Distance()
+                    EstimateBatteryRange = new Distance()
                     {
-                        Mile = ratedBatteryRange,
+                        Mile = estimateBatteryRange,
                     };
                 }
                 if (Decimal.TryParse(values[12], out Decimal heading))
@@ -123,8 +123,8 @@ namespace TurboYang.Tesla.Monitor.Client
         public Decimal? Longitude { get; init; }
         public Decimal? Power { get; init; }
         public ShiftState? ShiftState { get; init; }
-        public Distance IdealBatteryRange { get; init; }
-        public Distance RatedBatteryRange { get; init; }
+        public Distance EstimateBatteryRange { get; init; }
+        public Distance BatteryRange { get; init; }
         public Decimal? Heading { get; init; }
         public Decimal? EstimateHeading { get; init; }
         public Instant Timestamp { get; init; }

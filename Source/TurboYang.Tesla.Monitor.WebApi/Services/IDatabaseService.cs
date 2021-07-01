@@ -55,8 +55,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
             public Decimal? Power { get; init; }
             public Decimal? Odometer { get; init; }
             public Decimal? BatteryLevel { get; init; }
-            public Decimal? IdealBatteryRange { get; init; }
-            public Decimal? RatedBatteryRange { get; init; }
+            public Decimal? BatteryRange { get; init; }
             public Decimal? OutsideTemperature { get; init; }
             public Decimal? InsideTemperature { get; init; }
             public Decimal? DriverTemperatureSetting { get; init; }
@@ -98,8 +97,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 Power = streamingData?.Power ?? carData?.DriveState?.Power;
                 Odometer = streamingData?.Odometer?.Mile ?? carData?.CarState?.Odometer?.Mile;
                 BatteryLevel = streamingData?.BatteryLevel ?? carData?.ChargeState?.BatteryLevel;
-                IdealBatteryRange = streamingData?.IdealBatteryRange?.Mile ?? carData?.ChargeState?.IdealBatteryRange?.Mile;
-                RatedBatteryRange = streamingData?.RatedBatteryRange?.Mile ?? carData?.ChargeState?.RatedBatteryRange?.Mile;
+                BatteryRange = streamingData?.BatteryRange?.Mile ?? carData?.ChargeState?.RatedBatteryRange?.Mile;
                 OutsideTemperature = carData?.ClimateState?.OutsideTemperature?.Celsius;
                 InsideTemperature = carData?.ClimateState?.InsideTemperature?.Celsius;
                 DriverTemperatureSetting = carData?.ClimateState?.DriverTemperatureSetting?.Celsius;
@@ -138,8 +136,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 Power = snapshotEntity?.Power;
                 Odometer = snapshotEntity?.Odometer;
                 BatteryLevel = snapshotEntity?.BatteryLevel;
-                IdealBatteryRange = snapshotEntity?.IdealBatteryRange;
-                RatedBatteryRange = snapshotEntity?.RatedBatteryRange;
+                BatteryRange = snapshotEntity?.BatteryRange;
                 OutsideTemperature = snapshotEntity?.OutsideTemperature;
                 InsideTemperature = snapshotEntity?.InsideTemperature;
                 DriverTemperatureSetting = snapshotEntity?.DriverTemperatureSetting;
@@ -173,8 +170,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     Power = Power ?? baseSnapshot.Power,
                     Odometer = Debounce(Odometer, baseSnapshot?.Odometer, 1),
                     BatteryLevel = BatteryLevel ?? baseSnapshot.BatteryLevel,
-                    IdealBatteryRange = Debounce(IdealBatteryRange, baseSnapshot.IdealBatteryRange, 1),
-                    RatedBatteryRange = Debounce(RatedBatteryRange, baseSnapshot.RatedBatteryRange, 1),
+                    BatteryRange = Debounce(BatteryRange, baseSnapshot.BatteryRange, 1),
                     OutsideTemperature = OutsideTemperature ?? baseSnapshot.OutsideTemperature,
                     InsideTemperature = InsideTemperature ?? baseSnapshot.InsideTemperature,
                     DriverTemperatureSetting = DriverTemperatureSetting ?? baseSnapshot.DriverTemperatureSetting,
@@ -201,8 +197,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
             public Decimal? Heading { get; init; }
             public Decimal? Power { get; init; }
             public Decimal? BatteryLevel { get; init; }
-            public Decimal? IdealBatteryRange { get; init; }
-            public Decimal? RatedBatteryRange { get; init; }
+            public Decimal? BatteryRange { get; init; }
             public Decimal? OutsideTemperature { get; init; }
             public Decimal? InsideTemperature { get; init; }
             public Decimal? DriverTemperatureSetting { get; init; }
@@ -230,8 +225,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 Odometer = snapshot?.Odometer;
                 Power = snapshot?.Power;
                 BatteryLevel = snapshot?.BatteryLevel;
-                IdealBatteryRange = snapshot?.IdealBatteryRange;
-                RatedBatteryRange = snapshot?.RatedBatteryRange;
+                BatteryRange = snapshot?.BatteryRange;
                 OutsideTemperature = snapshot?.OutsideTemperature;
                 InsideTemperature = snapshot?.InsideTemperature;
                 DriverTemperatureSetting = snapshot?.DriverTemperatureSetting;
@@ -256,8 +250,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 Odometer = standBySnapshotEntity?.Odometer;
                 Power = standBySnapshotEntity?.Power;
                 BatteryLevel = standBySnapshotEntity?.BatteryLevel;
-                IdealBatteryRange = standBySnapshotEntity?.IdealBatteryRange;
-                RatedBatteryRange = standBySnapshotEntity?.RatedBatteryRange;
+                BatteryRange = standBySnapshotEntity?.BatteryRange;
                 OutsideTemperature = standBySnapshotEntity?.OutsideTemperature;
                 InsideTemperature = standBySnapshotEntity?.InsideTemperature;
                 DriverTemperatureSetting = standBySnapshotEntity?.DriverTemperatureSetting;
@@ -289,8 +282,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     Odometer = Debounce(Odometer, baseSnapshot?.Odometer, 1),
                     Power = Power ?? baseSnapshot.Power,
                     BatteryLevel = BatteryLevel ?? baseSnapshot.BatteryLevel,
-                    IdealBatteryRange = Debounce(IdealBatteryRange, baseSnapshot.IdealBatteryRange, 1),
-                    RatedBatteryRange = Debounce(RatedBatteryRange, baseSnapshot.RatedBatteryRange, 1),
+                    BatteryRange = Debounce(BatteryRange, baseSnapshot.BatteryRange, 1),
                     OutsideTemperature = OutsideTemperature ?? baseSnapshot.OutsideTemperature,
                     InsideTemperature = InsideTemperature ?? baseSnapshot.InsideTemperature,
                     DriverTemperatureSetting = DriverTemperatureSetting ?? baseSnapshot.DriverTemperatureSetting,
@@ -319,8 +311,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
             public Decimal? Power { get; init; }
             public Decimal? Odometer { get; init; }
             public Decimal? BatteryLevel { get; init; }
-            public Decimal? IdealBatteryRange { get; init; }
-            public Decimal? RatedBatteryRange { get; init; }
+            public Decimal? BatteryRange { get; init; }
             public Decimal? OutsideTemperature { get; init; }
             public Decimal? InsideTemperature { get; init; }
             public Decimal? DriverTemperatureSetting { get; init; }
@@ -350,8 +341,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 Power = snapshot?.Power;
                 Odometer = snapshot?.Odometer;
                 BatteryLevel = snapshot?.BatteryLevel;
-                IdealBatteryRange = snapshot?.IdealBatteryRange;
-                RatedBatteryRange = snapshot?.RatedBatteryRange;
+                BatteryRange = snapshot?.BatteryRange;
                 OutsideTemperature = snapshot?.OutsideTemperature;
                 InsideTemperature = snapshot?.InsideTemperature;
                 DriverTemperatureSetting = snapshot?.DriverTemperatureSetting;
@@ -378,8 +368,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 Power = drivingSnapshotEntity?.Power;
                 Odometer = drivingSnapshotEntity?.Odometer;
                 BatteryLevel = drivingSnapshotEntity?.BatteryLevel;
-                IdealBatteryRange = drivingSnapshotEntity?.IdealBatteryRange;
-                RatedBatteryRange = drivingSnapshotEntity?.RatedBatteryRange;
+                BatteryRange = drivingSnapshotEntity?.BatteryRange;
                 OutsideTemperature = drivingSnapshotEntity?.OutsideTemperature;
                 InsideTemperature = drivingSnapshotEntity?.InsideTemperature;
                 DriverTemperatureSetting = drivingSnapshotEntity?.DriverTemperatureSetting;
@@ -413,8 +402,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     Power = Power ?? baseSnapshot.Power,
                     Odometer = Debounce(Odometer, baseSnapshot?.Odometer, 1),
                     BatteryLevel = BatteryLevel ?? baseSnapshot.BatteryLevel,
-                    IdealBatteryRange = Debounce(IdealBatteryRange, baseSnapshot.IdealBatteryRange, 1),
-                    RatedBatteryRange = Debounce(RatedBatteryRange, baseSnapshot.RatedBatteryRange, 1),
+                    BatteryRange = Debounce(BatteryRange, baseSnapshot.BatteryRange, 1),
                     OutsideTemperature = OutsideTemperature ?? baseSnapshot.OutsideTemperature,
                     InsideTemperature = InsideTemperature ?? baseSnapshot.InsideTemperature,
                     DriverTemperatureSetting = DriverTemperatureSetting ?? baseSnapshot.DriverTemperatureSetting,
@@ -440,8 +428,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
             public Decimal? Odometer { get; init; }
             public Decimal? Heading { get; init; }
             public Decimal? BatteryLevel { get; init; }
-            public Decimal? IdealBatteryRange { get; init; }
-            public Decimal? RatedBatteryRange { get; init; }
+            public Decimal? BatteryRange { get; init; }
             public Decimal? OutsideTemperature { get; init; }
             public Decimal? InsideTemperature { get; init; }
             public Decimal? DriverTemperatureSetting { get; init; }
@@ -479,8 +466,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 Heading = snapshot?.Heading;
                 Odometer = snapshot?.Odometer;
                 BatteryLevel = snapshot?.BatteryLevel;
-                IdealBatteryRange = snapshot.IdealBatteryRange;
-                RatedBatteryRange = snapshot?.RatedBatteryRange;
+                BatteryRange = snapshot?.BatteryRange;
                 OutsideTemperature = snapshot?.OutsideTemperature;
                 InsideTemperature = snapshot?.InsideTemperature;
                 DriverTemperatureSetting = snapshot?.DriverTemperatureSetting;
@@ -515,8 +501,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 Heading = ChargingSnapshotEntity?.Heading;
                 Odometer = ChargingSnapshotEntity?.Odometer;
                 BatteryLevel = ChargingSnapshotEntity?.BatteryLevel;
-                IdealBatteryRange = ChargingSnapshotEntity?.IdealBatteryRange;
-                RatedBatteryRange = ChargingSnapshotEntity?.RatedBatteryRange;
+                BatteryRange = ChargingSnapshotEntity?.BatteryRange;
                 OutsideTemperature = ChargingSnapshotEntity?.OutsideTemperature;
                 InsideTemperature = ChargingSnapshotEntity?.InsideTemperature;
                 DriverTemperatureSetting = ChargingSnapshotEntity?.DriverTemperatureSetting;
@@ -558,8 +543,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     Heading = Heading ?? baseSnapshot.Heading,
                     Odometer = Debounce(Odometer, baseSnapshot?.Odometer, 1),
                     BatteryLevel = BatteryLevel ?? baseSnapshot.BatteryLevel,
-                    IdealBatteryRange = Debounce(IdealBatteryRange, baseSnapshot.IdealBatteryRange, 1),
-                    RatedBatteryRange = Debounce(RatedBatteryRange, baseSnapshot.RatedBatteryRange, 1),
+                    BatteryRange = Debounce(BatteryRange, baseSnapshot.BatteryRange, 1),
                     OutsideTemperature = OutsideTemperature ?? baseSnapshot.OutsideTemperature,
                     InsideTemperature = InsideTemperature ?? baseSnapshot.InsideTemperature,
                     DriverTemperatureSetting = DriverTemperatureSetting ?? baseSnapshot.DriverTemperatureSetting,

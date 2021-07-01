@@ -117,8 +117,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                         Power = currentSnapshot?.Power,
                         Odometer = currentSnapshot?.Odometer,
                         BatteryLevel = currentSnapshot?.BatteryLevel,
-                        IdealBatteryRange = currentSnapshot?.IdealBatteryRange,
-                        RatedBatteryRange = currentSnapshot?.RatedBatteryRange,
+                        BatteryRange = currentSnapshot?.BatteryRange,
                         OutsideTemperature = currentSnapshot?.OutsideTemperature,
                         InsideTemperature = currentSnapshot?.InsideTemperature,
                         DriverTemperatureSetting = currentSnapshot?.DriverTemperatureSetting,
@@ -241,14 +240,12 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 lastStandByEntity.Odometer = lastRecord?.Odometer;
 
                 lastStandByEntity.StartBatteryLevel = firstRecord?.BatteryLevel;
-                lastStandByEntity.StartIdealBatteryRange = firstRecord?.IdealBatteryRange;
-                lastStandByEntity.StartRatedBatteryRange = firstRecord?.RatedBatteryRange;
+                lastStandByEntity.StartBatteryRange = firstRecord?.BatteryRange;
                 lastStandByEntity.StartPower = firstRecord?.BatteryLevel / 100m * fullPower;
 
                 lastStandByEntity.EndTimestamp = timestamp;
                 lastStandByEntity.EndBatteryLevel = lastRecord?.BatteryLevel;
-                lastStandByEntity.EndIdealBatteryRange = lastRecord?.IdealBatteryRange;
-                lastStandByEntity.EndRatedBatteryRange = lastRecord?.RatedBatteryRange;
+                lastStandByEntity.EndBatteryRange = lastRecord?.BatteryRange;
                 lastStandByEntity.EndPower = lastRecord?.BatteryLevel / 100m * fullPower;
 
                 lastStandByEntity.Duration = (Decimal?)((lastStandByEntity.EndTimestamp - lastStandByEntity.StartTimestamp)?.TotalSeconds);
@@ -358,16 +355,14 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 lastDrivingEntity.StartAddress = startAddressEntity;
                 lastDrivingEntity.StartBatteryLevel = firstRecord?.BatteryLevel;
                 lastDrivingEntity.StartOdometer = firstRecord?.Odometer;
-                lastDrivingEntity.StartIdealBatteryRange = firstRecord?.IdealBatteryRange;
-                lastDrivingEntity.StartRatedBatteryRange = firstRecord?.RatedBatteryRange;
+                lastDrivingEntity.StartBatteryRange = firstRecord?.BatteryRange;
                 lastDrivingEntity.StartPower = firstRecord?.BatteryLevel / 100m * fullPower;
                 
                 lastDrivingEntity.EndTimestamp = timestamp;
                 lastDrivingEntity.EndAddress = endAddressEntity;
                 lastDrivingEntity.EndBatteryLevel = lastRecord?.BatteryLevel;
                 lastDrivingEntity.EndOdometer = lastRecord?.Odometer;
-                lastDrivingEntity.EndIdealBatteryRange = lastRecord?.IdealBatteryRange;
-                lastDrivingEntity.EndRatedBatteryRange = lastRecord?.RatedBatteryRange;
+                lastDrivingEntity.EndBatteryRange = lastRecord?.BatteryRange;
                 lastDrivingEntity.EndPower = lastRecord?.BatteryLevel / 100m * fullPower;
                 
                 lastDrivingEntity.Duration = (Decimal?)((lastDrivingEntity.EndTimestamp - lastDrivingEntity.StartTimestamp)?.TotalSeconds);
@@ -486,14 +481,12 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 lastChargingEntity.FastChargerType = lastRecord?.FastChargerType;
 
                 lastChargingEntity.StartBatteryLevel = firstRecord?.BatteryLevel;
-                lastChargingEntity.StartIdealBatteryRange = firstRecord?.IdealBatteryRange;
-                lastChargingEntity.StartRatedBatteryRange = firstRecord?.RatedBatteryRange;
+                lastChargingEntity.StartBatteryRange = firstRecord?.BatteryRange;
                 lastChargingEntity.StartPower = firstRecord?.BatteryLevel / 100m * fullPower;
 
                 lastChargingEntity.EndTimestamp = timestamp;
                 lastChargingEntity.EndBatteryLevel = lastRecord?.BatteryLevel;
-                lastChargingEntity.EndIdealBatteryRange = lastRecord?.IdealBatteryRange;
-                lastChargingEntity.EndRatedBatteryRange = lastRecord?.RatedBatteryRange;
+                lastChargingEntity.EndBatteryRange = lastRecord?.BatteryRange;
                 lastChargingEntity.EndPower = lastRecord?.BatteryLevel / 100m * fullPower;
 
                 lastChargingEntity.Duration = (Decimal?)((lastChargingEntity.EndTimestamp - lastChargingEntity.StartTimestamp)?.TotalSeconds);
@@ -525,8 +518,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     Odometer = currentStandBySnapshot?.Odometer,
                     Power = currentStandBySnapshot?.Power,
                     BatteryLevel = currentStandBySnapshot?.BatteryLevel,
-                    IdealBatteryRange = currentStandBySnapshot?.IdealBatteryRange,
-                    RatedBatteryRange = currentStandBySnapshot?.RatedBatteryRange,
+                    BatteryRange = currentStandBySnapshot?.BatteryRange,
                     OutsideTemperature = currentStandBySnapshot?.OutsideTemperature,
                     InsideTemperature = currentStandBySnapshot?.InsideTemperature,
                     DriverTemperatureSetting = currentStandBySnapshot?.DriverTemperatureSetting,
@@ -571,8 +563,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     Power = currentDrivingSnapshot?.Power,
                     Odometer = currentDrivingSnapshot?.Odometer,
                     BatteryLevel = currentDrivingSnapshot?.BatteryLevel,
-                    IdealBatteryRange = currentDrivingSnapshot?.IdealBatteryRange,
-                    RatedBatteryRange = currentDrivingSnapshot?.RatedBatteryRange,
+                    BatteryRange = currentDrivingSnapshot?.BatteryRange,
                     OutsideTemperature = currentDrivingSnapshot?.OutsideTemperature,
                     InsideTemperature = currentDrivingSnapshot?.InsideTemperature,
                     DriverTemperatureSetting = currentDrivingSnapshot?.DriverTemperatureSetting,
@@ -614,8 +605,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     Heading = currentChargingSnapshot?.Heading,
                     Odometer = currentChargingSnapshot?.Odometer,
                     BatteryLevel = currentChargingSnapshot?.BatteryLevel,
-                    IdealBatteryRange = currentChargingSnapshot?.IdealBatteryRange,
-                    RatedBatteryRange = currentChargingSnapshot?.RatedBatteryRange,
+                    BatteryRange = currentChargingSnapshot?.BatteryRange,
                     OutsideTemperature = currentChargingSnapshot?.OutsideTemperature,
                     InsideTemperature = currentChargingSnapshot?.InsideTemperature,
                     DriverTemperatureSetting = currentChargingSnapshot?.DriverTemperatureSetting,

@@ -14,8 +14,7 @@ namespace TurboYang.Tesla.Monitor.Database.Entities
         public Decimal? Heading { get; set; }
         public Decimal? Power { get; set; }
         public Decimal? BatteryLevel { get; set; }
-        public Decimal? IdealBatteryRange { get; set; }
-        public Decimal? RatedBatteryRange { get; set; }
+        public Decimal? BatteryRange { get; set; }
         public Decimal? OutsideTemperature { get; set; }
         public Decimal? InsideTemperature { get; set; }
         public Decimal? DriverTemperatureSetting { get; set; }
