@@ -1,4 +1,4 @@
-{
+癤�{
   "annotations": {
     "list": [
       {
@@ -818,7 +818,7 @@
               }
             ]
           },
-          "unit": "▲C"
+          "unit": "째C"
         },
         "overrides": [
           {
@@ -829,11 +829,11 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "▲F"
+                "value": "째F"
               },
               {
                 "id": "noValue",
-                "value": "- ▲F"
+                "value": "- 째F"
               },
               {
                 "id": "min",
@@ -881,11 +881,11 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "▲C"
+                "value": "째C"
               },
               {
                 "id": "noValue",
-                "value": "- ▲C"
+                "value": "- 째C"
               },
               {
                 "id": "min",
@@ -999,7 +999,7 @@
               }
             ]
           },
-          "unit": "▲C"
+          "unit": "째C"
         },
         "overrides": [
           {
@@ -1010,11 +1010,11 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "▲F"
+                "value": "째F"
               },
               {
                 "id": "noValue",
-                "value": "- ▲F"
+                "value": "- 째F"
               },
               {
                 "id": "min",
@@ -1062,11 +1062,11 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "▲C"
+                "value": "째C"
               },
               {
                 "id": "noValue",
-                "value": "- ▲C"
+                "value": "- 째C"
               },
               {
                 "id": "min",
@@ -1180,7 +1180,7 @@
               }
             ]
           },
-          "unit": "▲C"
+          "unit": "째C"
         },
         "overrides": [
           {
@@ -1191,11 +1191,11 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "▲F"
+                "value": "째F"
               },
               {
                 "id": "noValue",
-                "value": "- ▲F"
+                "value": "- 째F"
               },
               {
                 "id": "min",
@@ -1215,11 +1215,11 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "▲C"
+                "value": "째C"
               },
               {
                 "id": "noValue",
-                "value": "- ▲C"
+                "value": "- 째C"
               },
               {
                 "id": "min",
@@ -1305,7 +1305,7 @@
               }
             ]
           },
-          "unit": "▲C"
+          "unit": "째C"
         },
         "overrides": [
           {
@@ -1316,11 +1316,11 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "▲F"
+                "value": "째F"
               },
               {
                 "id": "noValue",
-                "value": "- ▲F"
+                "value": "- 째F"
               },
               {
                 "id": "min",
@@ -1340,11 +1340,11 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "▲C"
+                "value": "째C"
               },
               {
                 "id": "noValue",
-                "value": "- ▲C"
+                "value": "- 째C"
               },
               {
                 "id": "min",
