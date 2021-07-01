@@ -12,6 +12,9 @@ ENV GF_ANALYTICS_REPORTING_ENABLED=FALSE \
 
 USER root
 
+RUN grafana-cli plugins install grafana-worldmap-panel
+RUN grafana-cli plugins install pr0ps-trackmap-panel
+
 USER grafana
 
 COPY Grafana.ini /etc/grafana/grafana.ini
