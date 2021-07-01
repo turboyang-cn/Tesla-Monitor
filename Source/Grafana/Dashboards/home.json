@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1625130632652,
+  "iteration": 1625179783446,
   "links": [],
   "panels": [
     {
@@ -422,8 +422,8 @@
       "initialZoom": "17",
       "locationData": "table",
       "mapCenter": "Last GeoHash",
-      "mapCenterLatitude": 24.491856,
-      "mapCenterLongitude": 118.178765,
+      "mapCenterLatitude": 24.491872,
+      "mapCenterLongitude": 118.178786,
       "maxDataPoints": 1,
       "mouseWheelZoom": false,
       "showLegend": false,
@@ -1441,11 +1441,11 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "km"
+                "value": "km/h"
               },
               {
                 "id": "noValue",
-                "value": "- km"
+                "value": "- km/h"
               }
             ]
           },
@@ -1457,11 +1457,11 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "mi"
+                "value": "mi/h"
               },
               {
                 "id": "noValue",
-                "value": "- mi"
+                "value": "- mi/h"
               }
             ]
           }
@@ -1712,7 +1712,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  CASE\n    WHEN \"ShiftState\" = 'N' THEN 1\n    WHEN \"ShiftState\" = 'D' THEN 2\n    WHEN \"ShiftState\" = 'R' THEN 3\n    ELSE\n      0\n  END\nFROM \"Snapshot\"\nWHERE\n  \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  (CASE\n    WHEN \"ShiftState\" = 'N' THEN 1\n    WHEN \"ShiftState\" = 'D' THEN 2\n    WHEN \"ShiftState\" = 'R' THEN 3\n    ELSE\n      0\n  END) AS \"ShiftState\"\nFROM \"Snapshot\"\nWHERE\n  \"CarId\" = $Car\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -1932,5 +1932,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "0aX7n0k7z",
-  "version": 33
+  "version": 42
 }
