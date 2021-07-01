@@ -3,6 +3,7 @@ FROM grafana/grafana:latest
 ENV GF_ANALYTICS_REPORTING_ENABLED=FALSE \
     GF_AUTH_ANONYMOUS_ENABLED=true \
     GF_AUTH_BASIC_ENABLED=false \
+    GF_PATHS_PLUGINS="/var/lib/grafana-plugins" \
     GF_SECURITY_ADMIN_PASSWORD=admin \
     GF_SECURITY_ADMIN_USER=admin \
     GF_SECURITY_ALLOW_EMBEDDING=true \
@@ -12,8 +13,8 @@ ENV GF_ANALYTICS_REPORTING_ENABLED=FALSE \
 
 USER root
 
-RUN grafana-cli plugins install grafana-worldmap-panel
-RUN grafana-cli plugins install pr0ps-trackmap-panel
+RUN grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install grafana-worldmap-panel
+RUN grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install pr0ps-trackmap-panel
 
 USER grafana
 
