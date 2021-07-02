@@ -1948,7 +1948,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "100ms",
+  "refresh": "1s",
   "schemaVersion": 30,
   "style": "dark",
   "tags": [],
@@ -2049,7 +2049,6 @@
   "timepicker": {
     "hidden": true,
     "refresh_intervals": [
-      "100ms",
       "1s",
       "5s",
       "10s",
