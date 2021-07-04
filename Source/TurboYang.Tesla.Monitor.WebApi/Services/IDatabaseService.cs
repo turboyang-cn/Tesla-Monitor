@@ -150,7 +150,15 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 IsRearDefrosterOn = snapshotEntity?.IsRearDefrosterOn;
                 IsClimateOn = snapshotEntity?.IsClimateOn;
                 IsBatteryHeater = snapshotEntity?.IsBatteryHeater;
-                IsBatteryHeaterOn = snapshotEntity?.IsBatteryHeaterOn;
+                IsBatteryHeaterOn = snapshotEntity?.IsBatteryHeaterOn; 
+                ChargeEnergyAdded = snapshotEntity?.ChargeEnergyAdded;
+                ChargeEnergyUsed = snapshotEntity?.ChargeEnergyUsed;
+                ChargerPhases = snapshotEntity?.ChargerPhases;
+                ChargerPilotCurrent = snapshotEntity?.ChargerPilotCurrent;
+                ChargerActualCurrent = snapshotEntity?.ChargerActualCurrent;
+                ChargerPower = snapshotEntity?.ChargerPower;
+                ChargerVoltage = snapshotEntity?.ChargerVoltage;
+                ChargeRate = snapshotEntity?.ChargeRate;
             }
 
             public Snapshot Debounce(Snapshot baseSnapshot)
@@ -185,6 +193,18 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                     IsClimateOn = IsClimateOn ?? baseSnapshot.IsClimateOn,
                     IsBatteryHeater = IsBatteryHeater ?? baseSnapshot.IsBatteryHeater,
                     IsBatteryHeaterOn = IsBatteryHeaterOn ?? baseSnapshot.IsBatteryHeaterOn,
+                    ChargeEnergyAdded = ChargeEnergyAdded ?? baseSnapshot.ChargeEnergyAdded,
+                    ChargeEnergyUsed = ChargeEnergyUsed ?? baseSnapshot.ChargeEnergyUsed,
+                    ChargerPhases = ChargerPhases ?? baseSnapshot.ChargerPhases,
+                    ChargerPilotCurrent = ChargerPilotCurrent ?? baseSnapshot.ChargerPilotCurrent,
+                    ChargerActualCurrent = ChargerActualCurrent ?? baseSnapshot.ChargerActualCurrent,
+                    ChargerPower = ChargerPower ?? baseSnapshot.ChargerPower,
+                    ChargerVoltage = ChargerVoltage ?? baseSnapshot.ChargerVoltage,
+                    ChargeRate = ChargeRate ?? baseSnapshot.ChargeRate,
+                    IsFastChargerPresent = IsFastChargerPresent ?? baseSnapshot.IsFastChargerPresent,
+                    ChargeCable = ChargeCable ?? baseSnapshot.ChargeCable,
+                    FastChargerBrand = FastChargerBrand ?? baseSnapshot.FastChargerBrand,
+                    FastChargerType = FastChargerType ?? baseSnapshot.FastChargerType,
                 };
             }
         }

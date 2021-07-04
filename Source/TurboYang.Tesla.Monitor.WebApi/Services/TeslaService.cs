@@ -349,7 +349,10 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                         {
                             offlineCounter = 0;
 
-                            Snapshots.Enqueue((currentState, new IDatabaseService.Snapshot(carData, streamingData), streamingData.Timestamp));
+                            if (currentState != CarState.Charging)
+                            {
+                                Snapshots.Enqueue((currentState, new IDatabaseService.Snapshot(carData, streamingData), streamingData.Timestamp));
+                            }
                         }
 
                         if (currentState == CarState.Asleep || currentState == CarState.Offline)
