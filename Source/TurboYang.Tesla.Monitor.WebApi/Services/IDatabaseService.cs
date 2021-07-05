@@ -118,7 +118,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 ChargerPilotCurrent = carData?.ChargeState?.ChargerPilotCurrent;
                 ChargerActualCurrent = carData?.ChargeState?.ChargerActualCurrent;
                 ChargerPower = carData?.ChargeState?.ChargerPower;
-                ChargerVoltage = carData?.ChargeState?.ChargerVoltage;
+                ChargerVoltage = carData?.ChargeState?.ChargingState == "Disconnected" ? 0 : carData?.ChargeState?.ChargerVoltage;
                 ChargeRate = carData?.ChargeState?.ChargeRate;
                 IsFastChargerPresent = carData?.ChargeState?.IsFastChargerPresent;
                 ChargeCable = carData?.ChargeState?.ChargeCable;
