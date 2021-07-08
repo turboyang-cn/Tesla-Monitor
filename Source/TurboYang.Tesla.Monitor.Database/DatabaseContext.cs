@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -24,8 +23,6 @@ namespace TurboYang.Tesla.Monitor.Database
 {
     public class DatabaseContext : DbContext
     {
-        private ILogger Logger { get; } = LogManager.GetCurrentClassLogger();
-
         private static IReadOnlyDictionary<String, String> NameMapping
         {
             get
@@ -184,8 +181,6 @@ namespace TurboYang.Tesla.Monitor.Database
                     }
                 }
             }
-
-            Logger.Trace($"Change Tracker Entity Count: {ChangeTracker.Entries().Count()}");
         }
 
         #endregion
