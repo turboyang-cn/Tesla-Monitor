@@ -41,6 +41,10 @@ namespace TurboYang.Tesla.Monitor.Database.Entities
         public Int32? ChargerPower { get; set; }
         public Int32? ChargerVoltage { get; set; }
         public Decimal? ChargeRate { get; set; }
+        public Boolean? IsFastChargerPresent { get; set; }
+        public String ChargeCable { get; set; }
+        public String FastChargerBrand { get; set; }
+        public String FastChargerType { get; set; }
         public Instant? Timestamp { get; set; }
 
         public Int32? CarId { get; set; }

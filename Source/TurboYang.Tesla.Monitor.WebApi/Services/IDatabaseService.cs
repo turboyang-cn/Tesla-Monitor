@@ -159,6 +159,10 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 ChargerPower = snapshotEntity?.ChargerPower;
                 ChargerVoltage = snapshotEntity?.ChargerVoltage;
                 ChargeRate = snapshotEntity?.ChargeRate;
+                IsFastChargerPresent = snapshotEntity?.IsFastChargerPresent;
+                ChargeCable = snapshotEntity?.ChargeCable;
+                FastChargerBrand = snapshotEntity?.FastChargerBrand;
+                FastChargerType = snapshotEntity?.FastChargerType;
             }
 
             public Snapshot Debounce(Snapshot baseSnapshot)

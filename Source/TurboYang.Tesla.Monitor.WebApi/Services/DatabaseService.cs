@@ -140,6 +140,10 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                         ChargerPower = currentSnapshot?.ChargerPower,
                         ChargerVoltage = currentSnapshot?.ChargerVoltage,
                         ChargeRate = currentSnapshot?.ChargeRate,
+                        IsFastChargerPresent = currentSnapshot?.IsFastChargerPresent,
+                        ChargeCable = currentSnapshot?.ChargeCable,
+                        FastChargerBrand = currentSnapshot?.FastChargerBrand,
+                        FastChargerType = currentSnapshot?.FastChargerType,
 
                         State = lastStateEntity,
 
