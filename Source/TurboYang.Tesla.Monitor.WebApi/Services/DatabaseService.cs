@@ -372,6 +372,7 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 lastDrivingEntity.Duration = (Decimal?)((lastDrivingEntity.EndTimestamp - lastDrivingEntity.StartTimestamp)?.TotalSeconds);
                 lastDrivingEntity.Distance = lastDrivingEntity?.EndOdometer - lastDrivingEntity?.StartOdometer;
                 lastDrivingEntity.SpeedAverage = lastDrivingEntity.Duration > 0 ? lastDrivingEntity.Distance / lastDrivingEntity.Duration * 3600m : 0;
+                lastDrivingEntity.TemperatureAverage = Math.Abs((lastRecord?.OutsideTemperature - firstRecord?.OutsideTemperature) ?? 0) / 2;
 
                 await DatabaseContext.SaveChangesAsync();
 
