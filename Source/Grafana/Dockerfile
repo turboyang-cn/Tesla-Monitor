@@ -15,6 +15,7 @@ USER root
 
 RUN grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install grafana-worldmap-panel
 RUN grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install pr0ps-trackmap-panel
+RUN grafana-cli --pluginsDir "${GF_PATHS_PLUGINS}" plugins install woutervh-mapbox-panel
 
 USER grafana
 
