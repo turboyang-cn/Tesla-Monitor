@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1625181087830,
+  "iteration": 1625810159580,
   "links": [],
   "panels": [
     {
@@ -78,7 +78,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "repeat": null,
       "targets": [
         {
@@ -128,10 +128,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -160,7 +156,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -270,7 +266,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "repeat": null,
       "targets": [
         {
@@ -382,7 +378,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -436,15 +432,15 @@
       "initialZoom": "18",
       "locationData": "table",
       "mapCenter": "Last GeoHash",
-      "mapCenterLatitude": 24.491872,
-      "mapCenterLongitude": 118.178786,
+      "mapCenterLatitude": 24.491853,
+      "mapCenterLongitude": 118.178806,
       "maxDataPoints": 1,
       "mouseWheelZoom": false,
       "showLegend": false,
       "stickyLabels": false,
       "tableQueryOptions": {
         "geohashField": "geohash",
-        "labelField": "",
+        "labelField": "name",
         "latitudeField": "latitude",
         "longitudeField": "longitude",
         "metricField": "metric",
@@ -456,7 +452,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  5::float as \"metric\",\n  st_y(\"Location\"::geometry) as \"latitude\",\n  st_x(\"Location\"::geometry) as \"longitude\"\nFROM \"Snapshot\"\nWHERE\n  \"Location\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
+          "rawSql": "SELECT\n  'Car' as \"name\",\n  null::float as \"metric\",\n  st_y(\"Location\"::geometry) as \"latitude\",\n  st_x(\"Location\"::geometry) as \"longitude\"\nFROM \"Snapshot\"\nWHERE\n  \"Location\" IS NOT NULL AND \"CarId\" = $Vehicle\nORDER BY \"Timestamp\" DESC\nLIMIT 1",
           "refId": "A",
           "select": [
             [
@@ -549,7 +545,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -593,7 +589,7 @@
           "mappings": [],
           "max": 400,
           "min": 0,
-          "noValue": "0 V",
+          "noValue": "- V",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -626,7 +622,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -670,7 +666,7 @@
           "mappings": [],
           "max": 32,
           "min": 0,
-          "noValue": "0 A",
+          "noValue": "- A",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -703,7 +699,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -745,7 +741,7 @@
             "mode": "thresholds"
           },
           "mappings": [],
-          "noValue": "0 kWh",
+          "noValue": "- kWh",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -778,7 +774,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -960,7 +956,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -1141,7 +1137,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -1266,7 +1262,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -1391,7 +1387,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -1504,7 +1500,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -1616,7 +1612,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -1685,7 +1681,7 @@
               "type": "value"
             }
           ],
-          "noValue": "P",
+          "noValue": "-",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1720,7 +1716,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -1799,7 +1795,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.0.4",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "format": "table",
@@ -1830,122 +1826,6 @@
       ],
       "title": "Using Power",
       "type": "stat"
-    },
-    {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 15
-      },
-      "id": 35,
-      "panels": [],
-      "title": "Row title",
-      "type": "row"
-    },
-    {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 16
-      },
-      "id": 31,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT\r\n  \"Timestamp\" AS \"time\",\r\n  \"Speed\"\r\nFROM \"DrivingSnapshot\"\r\nWHERE\r\n  \"DrivingId\" = (SELECT \"Id\" FROM \"Driving\" WHERE \"StartTimestamp\" IS NOT NULL AND \"EndTimestamp\" IS NOT NULL ORDER BY \"CreateTimestamp\" DESC LIMIT 1)\r\nORDER BY \"Timestamp\"",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "\"Speed\""
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "table": "\"DrivingSnapshot\"",
-          "timeColumn": "\"Timestamp\"",
-          "timeColumnType": "timestamp",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "title": "Panel Title",
-      "type": "timeseries"
     }
   ],
   "refresh": "5s",
@@ -1959,7 +1839,7 @@
         "current": {
           "selected": false,
           "text": "Model 3",
-          "value": "10000007"
+          "value": "10000000"
         },
         "datasource": null,
         "definition": "SELECT \"Name\" AS __text, \"Id\" AS __value FROM \"Car\";",
@@ -2043,7 +1923,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {
@@ -2064,5 +1944,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "0aX7n0k7z",
-  "version": 52
+  "version": 19
 }
