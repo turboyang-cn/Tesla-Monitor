@@ -26,6 +26,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=TeslaMonitor
       - TZ=Asia/Shanghai
+      - GF_AUTH_ANONYMOUS_ENABLED=false
     ports:
       - 54322:5432
     volumes:
