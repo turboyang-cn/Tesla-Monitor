@@ -31,6 +31,8 @@ namespace TurboYang.Tesla.Monitor.Database.Entities
         public Decimal? ChargeEnergyUsed { get; set; }
         public Decimal? Efficiency { get; set; }
         public Decimal? Duration { get; set; }
+        public Decimal? OutsideTemperatureAverage { get; set; }
+        public Decimal? InsideTemperatureAverage { get; set; }
 
         public Int32? CarId { get; set; }
         public virtual CarEntity Car { get; set; }

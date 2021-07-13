@@ -374,7 +374,11 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 lastDrivingEntity.SpeedAverage = lastDrivingEntity.Duration > 0 ? lastDrivingEntity.Distance / lastDrivingEntity.Duration * 3600m : 0;
                 if (firstRecord?.OutsideTemperature != null && lastRecord?.OutsideTemperature != null)
                 {
-                    lastDrivingEntity.TemperatureAverage = (firstRecord.OutsideTemperature + lastRecord.OutsideTemperature) / 2;
+                    lastDrivingEntity.OutsideTemperatureAverage = (firstRecord.OutsideTemperature + lastRecord.OutsideTemperature) / 2;
+                }
+                if (firstRecord?.InsideTemperature != null && lastRecord?.InsideTemperature != null)
+                {
+                    lastDrivingEntity.InsideTemperatureAverage = (firstRecord.InsideTemperature + lastRecord.InsideTemperature) / 2;
                 }
 
                 await DatabaseContext.SaveChangesAsync();
@@ -501,6 +505,14 @@ namespace TurboYang.Tesla.Monitor.WebApi.Services
                 lastChargingEntity.ChargeEnergyAdded = lastRecord?.ChargeEnergyAdded - firstRecord?.ChargeEnergyAdded;
                 lastChargingEntity.ChargeEnergyUsed = chargeEnergyUsed;
                 lastChargingEntity.Efficiency = lastChargingEntity.ChargeEnergyAdded / lastChargingEntity.ChargeEnergyUsed * 100m;
+                if (firstRecord?.OutsideTemperature != null && lastRecord?.OutsideTemperature != null)
+                {
+                    lastChargingEntity.OutsideTemperatureAverage = (firstRecord.OutsideTemperature + lastRecord.OutsideTemperature) / 2;
+                }
+                if (firstRecord?.InsideTemperature != null && lastRecord?.InsideTemperature != null)
+                {
+                    lastChargingEntity.InsideTemperatureAverage = (firstRecord.InsideTemperature + lastRecord.InsideTemperature) / 2;
+                }
 
                 await DatabaseContext.SaveChangesAsync();
 

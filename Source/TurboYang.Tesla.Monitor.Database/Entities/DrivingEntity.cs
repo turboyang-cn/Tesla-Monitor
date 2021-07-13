@@ -25,7 +25,8 @@ namespace TurboYang.Tesla.Monitor.Database.Entities
         public Decimal? Distance { get; set; }
         public Decimal? Duration { get; set; }
         public Decimal? SpeedAverage { get; set; }
-        public Decimal? TemperatureAverage { get; set; }
+        public Decimal? OutsideTemperatureAverage { get; set; }
+        public Decimal? InsideTemperatureAverage { get; set; }
 
         public Int32? CarId { get; set; }
         public virtual CarEntity Car { get; set; }
